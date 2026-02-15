@@ -57,7 +57,7 @@
 </div>
 <!-- Registration Card -->
 <div class="bg-white dark:bg-zinc-900 shadow-xl rounded-xl p-8 border border-zinc-100 dark:border-zinc-800">
-<form action="#" class="space-y-5">
+<form id="register-form" action="#" class="space-y-5">
 <!-- Full Name Field -->
 <div>
 <label class="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5" for="full-name">Full Name</label>
@@ -71,7 +71,7 @@
 <label class="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5" for="email">Email Address</label>
 <div class="relative">
 <span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-lg">mail_outline</span>
-<input class="w-full pl-10 pr-4 py-3 bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500" id="email" name="email" placeholder="john@example.com" type="email"/>
+<input class="w-full pl-10 pr-4 py-3 bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500" id="email" name="email" placeholder="yuor email" type="email"/>
 </div>
 </div>
 <!-- Password Field -->
@@ -144,4 +144,38 @@
             </div>
 </div>
 </div>
+        <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+  // Firebase Config (Isticmaal kanaga saxda ah)
+  const firebaseConfig = {
+    apiKey: "AIzaSyCk4S0S7dvZrTN6q4oISLIWIXZNtHXRrvk",
+    authDomain: "my-websade.firebaseapp.com",
+    projectId: "my-websade",
+    appId: "1:34681878474:web:5d11bb422bf74008cdc133"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const registerForm = document.getElementById('register-form');
+
+  registerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    // Shaqada abuurista isticmaalaha cusub
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        alert("Account-ka si guul leh ayaa loo abuuray! 🎉");
+        window.location.href = "home.html"; // Toos ugu kaxee Home Page-ka
+      })
+      .catch((error) => {
+        alert("Cillad: " + error.message);
+      });
+  });
+</script>
 </body></html>
