@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | Glow &amp; Grain Skin Care</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 min-h-screen flex items-center justify-center p-0 m-0">
+<div class="flex w-full min-h-screen">
+<!-- Left Side: Aesthetic Product Imagery -->
+<div class="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-tr from-background-dark/40 to-transparent z-10"></div>
+<img alt="Natural skincare products" class="absolute inset-0 w-full h-full object-cover" data-alt="Aesthetic bottles of organic facial oils and cream jars on a marble surface with eucalyptus leaves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGiV0-IJCOMCz-NjosduUOGw4AEgVzfUVibEThQ1k8Mdu_yl6NHLvCkavrXIVmzfajHqNlKh55PO3xehpwZt_FCndHXjhxWWva2HdEqNVXlBfxTMXdMOFeltKS3Wwh8amP6t7QgBL8ydmZqrrRowIwTioGozrx_Aa3Dh15pDFGPIk46B4PbO4OBpE7enFV3JRo0etvGn3tIj774lXRhJJ8DJMzsEIVzawgEsP877a0TMKEMSHW-SOL70KkDNvGYGAk8ZnyJ2c2ah3M"/>
+<div class="relative z-20 flex flex-col justify-between p-16 w-full text-white">
+<div class="flex items-center space-x-2">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-icons text-background-dark">spa</span>
+</div>
+<span class="text-2xl font-bold tracking-tight">GLOW &amp; GRAIN</span>
+</div>
+<div class="max-w-md">
+<h2 class="text-5xl font-bold leading-tight mb-6">Nature's purest ingredients for your skin.</h2>
+<p class="text-lg opacity-90 leading-relaxed">
+                        Join our community and discover personalized routines crafted from organic botanical extracts and cold-pressed oils.
+                    </p>
+</div>
+<div class="flex items-center space-x-4">
+<div class="flex -space-x-3">
+<img alt="User 1" class="w-10 h-10 rounded-full border-2 border-white" data-alt="Female user profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvODqW6BwE3GeENoM7txMLVLQX-ztHZx6EXHyYMaAe6_HBEY629_hs9OnjcLMViqLYPQgW1s4GzuYn9mMTmXqNbv9EoavrWFHUqcTYWfZL216fSlN6_05qE2OZZ7xWBhdxzgWT_Pf3ytb5gmMjwZxAs7Lsq_x5_cDCdKCIb_RYWWGBg64fbCX4PvID10CFul_rjQFMLa1d8mcVqZUWHzM83FmEjXxzZjGiusptDp_WT9HMrpRyNZ_tcYx-l7hgZrcMpGfobVJrAU-f"/>
+<img alt="User 2" class="w-10 h-10 rounded-full border-2 border-white" data-alt="Male user profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5S39WBeVeY3fJRtcc_AdjZj9xpCByr3TIvt_QAi_IYjkQYnX0UGsBs5HZZ60O56OYfAUhLgxzJpcQrkzktbJs_zgbIkZeoMttyojO9lvSRLHY__r2A4PmRYWLUmxctnmDgUQrpUtEdhM2AJqeDPDGu5rGn_LGhN1ZueEn0FztSKplCtKeskjAZAMFVdwvWEyEPSkhwbhp7esiHhGKU79fXo58wrloF-w09hibvrnXnoip39RZMUJ3H1dQ_qCfGkZz348iH2bbPr2e"/>
+<img alt="User 3" class="w-10 h-10 rounded-full border-2 border-white" data-alt="Female user profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxY9s3ATCSXDOAmkuLMpC_B3nen4JPwATnRrkgzxCESCXH4Kz5l4UbiEKydL-wQZHExvrO6wKaEGl-kg2Q7gZ09WEzWlhwD-GRm60bMJ9X4A6cB_KZOTN5gQpVWBGYhWF4_JD_QOQupvYqE17nJ4Mz76hzDVKihL0bNOtW76CEJo1XQTeM6zhRaC-NWKBUQ9gaUiTCWqxqHH5ly47tjg7f4fYsmsSawyefCfcYLsL5bI2pKTrlnv57XOkF102WQBwAkIdVqSa8gjNZ"/>
+</div>
+<p class="text-sm font-medium">Over 20k skin enthusiasts trust us</p>
+</div>
+</div>
+</div>
+<!-- Right Side: Login Form -->
+<div class="w-full lg:w-1/2 flex flex-col items-center justify-center p-8 lg:p-24 bg-background-light dark:bg-background-dark">
+<div class="w-full max-w-md">
+<!-- Mobile Logo -->
+<div class="lg:hidden flex items-center space-x-2 mb-12 justify-center">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-icons text-sm text-background-dark">spa</span>
+</div>
+<span class="text-xl font-bold tracking-tight dark:text-white">GLOW &amp; GRAIN</span>
+</div>
+<div class="mb-10 text-center lg:text-left">
+<h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Welcome Back</h1>
+<p class="text-slate-500 dark:text-slate-400">Access your personalized beauty routine and orders.</p>
+</div>
+<form class="space-y-6">
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="email">Email Address</label>
+<div class="relative">
+<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">mail_outline</span>
+<input class="w-full pl-10 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all dark:text-white" id="email" placeholder="name@example.com" required="" type="email"/>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300" for="password">Password</label>
+<a class="text-sm font-semibold text-primary hover:underline transition-all" href="#">Forgot password?</a>
+</div>
+<div class="relative">
+<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">lock_outline</span>
+<input class="w-full pl-10 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all dark:text-white" id="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors" type="button">
+<span class="material-icons text-lg">visibility_off</span>
+</button>
+</div>
+</div>
+<div class="flex items-center">
+<input class="w-4 h-4 text-primary bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded focus:ring-primary" id="remember" type="checkbox"/>
+<label class="ml-2 text-sm text-slate-600 dark:text-slate-400" for="remember">Keep me logged in</label>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-3.5 rounded-lg transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="submit">
+                        Sign In to Account
+                    </button>
+<div class="relative py-4">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-slate-200 dark:border-slate-700"></div>
+</div>
+<div class="relative flex justify-center text-xs uppercase">
+<span class="bg-background-light dark:bg-background-dark px-2 text-slate-500">Or continue with</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center py-2.5 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors" type="button">
+<img alt="Google" class="w-5 h-5 mr-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO0lWiT5XYmg8qO5BNC_VU_dJG3wnzi0dZCYCGC1E-yHpeffz1w-NvzPp1jqhWyAoPtID1GbcSKZofOdMKG4Tizgsx6onLSEiTZ2LMo8-OGdcWnp2dO7K_RJXs-aEsHn7vf_zGLBH1nDiQ1KLw8eOWIcx_Uvp6My6NqQKEMC5aBtQjHQSs3GBGFixZl7Z3rWXIy6rLMR1Xtq7C6BLxI-XPNp-ixpKD770ndUNvxoCiSgsKMpf6bfBN4meGcZPnDbTvWxj0slDDCXfi"/>
+<span class="text-sm font-medium dark:text-white">Google</span>
+</button>
+<button class="flex items-center justify-center py-2.5 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors" type="button">
+<img alt="Facebook" class="w-5 h-5 mr-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNXohmrXmPhIqHVZ8b2i9jpNZzWGnzSGaHLiBidNbFgqV_Uvk_2YWGY3c03-B8LlVdEQi4G4K4fqCL0dnOYAeP84aKe8zF7eDGecLEWF5uDUf1dr_QEKJVFpgZpXXEXc-7TPEIAhnhu5oFnCVXvdwTMubP-8Sf0OBoccI63r3KCze_kR3Ll35xq2hsBQv1BPWiGFJjnarGZsnzL9MuJqI128s5qKOsothAgMesAvbyT1PARESIdpwEf8_6wd0YZ2rJifLr_N9VdTxR"/>
+<span class="text-sm font-medium dark:text-white">Facebook</span>
+</button>
+</div>
+</form>
+<p class="mt-10 text-center text-sm text-slate-500 dark:text-slate-400">
+                    New to Glow &amp; Grain? 
+                    <a class="text-primary font-bold hover:underline transition-all" href="#">Create an account</a>
+</p>
+<div class="mt-12 flex items-center justify-center space-x-6 text-xs text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Contact Support</a>
+</div>
+</div>
+</div>
+</div>
+</body></html>
