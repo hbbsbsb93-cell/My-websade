@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Welcome | Organic Skin &amp; Hair Care</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "sage": "#8A9A5B",
+                        "cream": "#FDFBF7",
+                        "deep-forest": "#1a2e1f",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .hero-overlay {
+            background: linear-gradient(rgba(16, 34, 22, 0.4), rgba(16, 34, 22, 0.4));
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-deep-forest dark:text-background-light font-display antialiased">
+<!-- Transparent Sticky Header -->
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-sm bg-white/10 border-b border-white/10">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<!-- Brand Logo -->
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+<span class="material-icons text-white text-lg">eco</span>
+</div>
+<span class="text-2xl font-extrabold tracking-tight text-white">LUMINA</span>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium text-white hover:text-primary transition-colors" href="#">Shop</a>
+<a class="text-sm font-medium text-white hover:text-primary transition-colors" href="#">Our Story</a>
+<a class="text-sm font-medium text-white hover:text-primary transition-colors" href="#">Ingredients</a>
+<a class="text-sm font-medium text-white hover:text-primary transition-colors" href="#">Wholesale</a>
+</nav>
+<!-- Action Icons -->
+<div class="flex items-center gap-6">
+<button class="text-white hover:text-primary transition-colors">
+<span class="material-icons">search</span>
+</button>
+<button class="text-white hover:text-primary transition-colors relative">
+<span class="material-icons">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-primary text-[10px] text-white font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+</button>
+<button class="md:hidden text-white">
+<span class="material-icons">menu</span>
+</button>
+</div>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+<!-- Hero Image Background -->
+<div class="absolute inset-0 z-0">
+<img alt="Natural Skincare Ingredients" class="w-full h-full object-cover" data-alt="Close up of organic oils and herbal skincare ingredients" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhMJVM5ssqPh3o3uIyTj9uv00197k2sdANDeBRdnydB9T3TB1WXtsRQJ_sn812iiPFUs-pqB3eBW8uyqNhpBb714w88GzeTAK1IvQCLKplPtmPygHuOfcjsWnxB5u27OXAdHj9VSYDHJ4qf7cISjOhVgMYmHTd14Af5_CDsaSxrswx2sRbAyDDDJewHmDXc0bo6r2uKt8zjvy9sCNJh5WYo87wa0yt6l3kKTdziiUKt6Es_btDX8SLXIAslBjJ4E7Om_WAJGpoYsKA"/>
+<div class="absolute inset-0 hero-overlay"></div>
+</div>
+<!-- Content Container -->
+<div class="relative z-10 max-w-4xl px-6 text-center text-white">
+<div class="inline-block mb-6 px-4 py-1.5 bg-primary/20 backdrop-blur-md border border-primary/30 rounded-full">
+<span class="text-xs font-bold tracking-widest uppercase text-primary">Organic &amp; Artisanal</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+                    Your Natural Glow <br/> Starts Here
+                </h1>
+<p class="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                    Discover our curated collection of organic oils, artisanal soaps, and botanical creams crafted for your skin's health and natural radiance.
+                </p>
+<!-- Central CTA Block -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<button class="w-full sm:w-auto px-10 py-4 bg-primary text-deep-forest font-bold rounded-lg hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-95">
+                        Register Now
+                    </button>
+<button class="w-full sm:w-auto px-10 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold rounded-lg hover:bg-white/20 transition-all active:scale-95">
+                        Member Login
+                    </button>
+</div>
+</div>
+<!-- Scroll Indicator -->
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50">
+<span class="text-[10px] uppercase tracking-widest font-bold">Scroll Down</span>
+<span class="material-icons text-lg">expand_more</span>
+</div>
+</section>
+<!-- Product Highlight Section -->
+<section class="py-24 bg-background-light dark:bg-background-dark">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div class="max-w-xl">
+<h2 class="text-sage font-bold uppercase tracking-widest text-sm mb-3">Our Essentials</h2>
+<h3 class="text-4xl font-bold text-deep-forest dark:text-white">Crafted by nature, <br/>refined for you.</h3>
+</div>
+<a class="group flex items-center gap-2 text-deep-forest dark:text-white font-bold hover:text-primary transition-colors" href="#">
+                        Explore Shop
+                        <span class="material-icons group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Essential Oil -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-sage/5">
+<img alt="Organic Facial Oil" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Amber glass bottle of organic facial oil on wood" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDI0llvkrfStYBAvGZMvRjCao5p3M_qg-DChnHALeZ0i-wyJLefISGFNhp-cPbAjZGA4cG1NvdoxtKff7VoaANGB8fi7_ZfCNm3hDtozkuvS6l3CXXYTO9ikosvTypScwVMyRxdsXI9H1D3vi_Eryz2cN5u1hmjU2UJFvHk4C-uz6lbnkedB1gAKol0u-ECuK25-ns-HeB1TCNR-2rr5AKqqm7HrW02JZnyAFx4WEFZoRQ_gAoZdqsk1mb9w8MEYIaIgO2HuPCfWtyJ"/>
+<div class="absolute top-4 right-4 bg-white/90 px-3 py-1 rounded-full text-xs font-bold text-deep-forest">Organic</div>
+</div>
+<h4 class="text-xl font-bold mb-1">Botanical Facial Oil</h4>
+<p class="text-sage text-sm font-medium">Restorative &amp; Brightening</p>
+</div>
+<!-- Artisanal Soap -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-sage/5">
+<img alt="Natural Hand Soap" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Natural handmade soap bars with botanical details" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK-8HrRQFac7M1N_RgTb1PhERefZvTuCWtqMq3r8b7x_JQV5SOugweMmEduJ3e-Teov_i2ky0oqD9nxo1DWnLjfSXYfufBJ4xaQmavNcpZOPjPOse15fV0okSZs6KmnlvWespudt80SVOx92olU4YR8ibO8EHPXK3m-qQnXGAw0716tYmvwE8F9cKd8-7DF8tHLkIpi3F88UH7-b5F5WFrGL-mL5de7bzG8D6fD4IjARBFV-EkHdy_bAyQSR0BqtVDBPWjqD6FJlWq"/>
+</div>
+<h4 class="text-xl font-bold mb-1">Cold-Pressed Soaps</h4>
+<p class="text-sage text-sm font-medium">Gentle &amp; Nourishing</p>
+</div>
+<!-- Cream -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-sage/5">
+<img alt="Herbal Cream" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Glass jar of white facial cream with green leaves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtYGDOKvEpzYn_lgMp7wk-7Z8tgTfVpwOj-p2607YNO6EMr4uHvBW-G4ZGaJgjhGxndo-72xSbS_ZhNpGSw18RUAG0SVMp8ZZMnVyE_t0zDfVHokldBBlKXRCqtLLroVl-tHsQz_XpUDaeL9qguhy091lt_B89Jrciw5e2pRV7C9gHsY2zheLDQBDJYJu1OdO7tIfnIy67MnYyjYVph6FwrIUtqBNBVs1Z-bwSPkVFrAtwMLoF-HfvLzfY2qeH51d97yJ_eaRc2TdG"/>
+<div class="absolute top-4 right-4 bg-primary text-deep-forest px-3 py-1 rounded-full text-xs font-bold">Best Seller</div>
+</div>
+<h4 class="text-xl font-bold mb-1">Whipped Shea Butter</h4>
+<p class="text-sage text-sm font-medium">Deep Hydration</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter Section -->
+<section class="py-20 bg-sage/10 dark:bg-primary/5">
+<div class="max-w-4xl mx-auto px-6 text-center">
+<span class="material-icons text-primary text-4xl mb-6">mail_outline</span>
+<h2 class="text-3xl font-bold mb-4">Join our community</h2>
+<p class="text-deep-forest/70 dark:text-white/70 mb-8 max-w-md mx-auto">Subscribe to receive exclusive offers, early access to new launches, and skincare tips.</p>
+<form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+<input class="flex-1 bg-white dark:bg-background-dark border-sage/20 rounded-lg px-6 py-4 focus:ring-primary focus:border-primary" placeholder="Your email address" type="email"/>
+<button class="bg-deep-forest text-white dark:bg-primary dark:text-deep-forest font-bold px-8 py-4 rounded-lg hover:opacity-90 transition-opacity" type="submit">
+                        Subscribe
+                    </button>
+</form>
+</div>
+</section>
+</main>
+<footer class="bg-white dark:bg-background-dark border-t border-sage/10 py-12">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 bg-sage rounded-full flex items-center justify-center">
+<span class="material-icons text-white text-xs">eco</span>
+</div>
+<span class="text-xl font-extrabold tracking-tight text-deep-forest dark:text-white">LUMINA</span>
+</div>
+<div class="flex gap-8 text-sm font-medium text-deep-forest/60 dark:text-white/60">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Contact</a>
+<a class="hover:text-primary transition-colors" href="#">FAQ</a>
+</div>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-sage/10 dark:bg-white/5 flex items-center justify-center text-deep-forest dark:text-white hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-icons text-xl">facebook</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-sage/10 dark:bg-white/5 flex items-center justify-center text-deep-forest dark:text-white hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-icons text-xl">camera_alt</span>
+</a>
+</div>
+</div>
+<div class="mt-12 text-center text-xs text-deep-forest/40 dark:text-white/40">
+                © 2023 Lumina Skincare. All rights reserved. Crafted with care for your skin.
+            </div>
+</div>
+</footer>
+</body></html>
