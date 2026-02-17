@@ -179,4 +179,63 @@ body {
       });
   });
 </script>
+<!--loading bar-->
+        <style>
+                .spinner {
+    width: 45px;
+    height: 45px;
+    border: 5px solid #e5e7eb;
+    border-top: 5px solid #13ec5b; /* Midabkaaga Primary-ga ah */
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+        </style>
+        <body>
+                <div id="loader" class="fixed inset-0 bg-white/60 dark:bg-zinc-900/60 z-[500] hidden flex flex-col items-center justify-center backdrop-blur-sm">
+    <div class="spinner"></div>
+    <p class="mt-4 text-background-dark dark:text-white font-bold animate-pulse">Checking credentials...</p>
+</div>
+
+        </body>
+        <script>
+                  const auth = getAuth(app);
+  const registerForm = document.getElementById('register-form');
+  const loader = document.getElementById('loader'); // Soo qaado loader-ka
+
+  registerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    // Hubi haddii password-yadu is leeyihiin ka hor intaanan Firebase la gaarin
+    if (password !== confirmPassword) {
+        alert("Password-yadu isma laha!");
+        return;
+    }
+
+    // 1. Muuji loader-ka markiiba
+    loader.classList.remove('hidden');
+
+    // 2. Shaqada Firebase
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Halkan loader-ka ha ka saarin waayo bogga ayaa isbeddelaya (Home.html)
+        alert("Account-ka si guul leh ayaa loo abuuray! 🎉");
+        window.location.href = "home.html";
+      })
+      .catch((error) => {
+        // 3. Haddii error dhaco, qari loader-ka si qofku u arko error-ka uuna u saxo
+        loader.classList.add('hidden');
+        alert("Cillad: " + error.message);
+      });
+  });
+
+        </script>
 </body></html>
