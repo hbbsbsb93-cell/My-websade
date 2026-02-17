@@ -392,40 +392,40 @@
 
     closeMenuBtn.addEventListener('click', closeAll);
     overlay.addEventListener('click', closeAll);
+<script type="module" src="auth-logout.js">// --- SHAKHADA LOGOUT-KA OO DHAMMAYSTIRAN ---
 
-    // --- SHAKHADA LOGOUT ---
-    const logoutBtn = document.getElementById('logout-link');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            localStorage.clear();
-            sessionStorage.clear();
-            window.location.href = 'index.html';
-        });
-    }
-
-//-------shqada Logout ka-----
-        // 1. Soo dhoofiy xiriirka Firebase Auth
+// 1. Soo dhoofiy xiriirka lagama maarmaanka ah ee Firebase Auth
 import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+// 2. Diyaarinta Firebase Auth (Hubi in Firebase-kaagu uu hore u bilowday)
 const auth = getAuth();
+
+// 3. Aqoonsiga badhanka Logout-ka ee ku dhex jira HTML-ka (ID: logout-link)
 const logoutBtn = document.getElementById('logout-link');
 
-// 2. Hubi in badhanku jiro ka dibna shaqada sii
+// 4. Shaqada dhacaysa marka qofku riixo "Logout"
 if (logoutBtn) {
     logoutBtn.addEventListener('click', (e) => {
-        e.preventDefault(); // Ka jooji inuu bogga refresh gareeyo
+        // Ka jooji inuu bogga si iskii ah u refresh gareeyo
+        e.preventDefault(); 
 
-        // 3. Amarka Logout-ka ee dhabta ah
+        // Amarka Logout-ka ee dhabta ah ee jaraya xiriirka Token-ka
         signOut(auth).then(() => {
-            // Halkan Token-ka browser-ka waa laga saaray
-            console.log("User signed out successfully");
-            window.location.href = "index.html"; // U kaxee bogga hore
+            // Tirtir xog kasta oo browser-ka ugu kaydsanayd qofka
+            localStorage.clear();
+            sessionStorage.clear();
+
+            // U kaxee qofka bogga index.html maadaama uusan hadda Token lahayn
+            console.log("Token-kii waa la jaray, qofku waa baxay.");
+            window.location.href = "index.html"; 
         }).catch((error) => {
             console.error("Logout Error:", error);
             alert("Cillad: Ma suurtagalin in laga baxo ciwaanka.");
         });
     });
 }
+</script>
+
 
 
 </script>
