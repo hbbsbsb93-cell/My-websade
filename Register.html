@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Register - Nature's Glow Skincare</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Register - Nature's Glow Skincare</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
           theme: {
@@ -26,216 +26,175 @@
           },
         }
     </script>
-<style>
-html {
-    height: auto !important;
-    overflow: auto !important;
-}
-
-body {
-    min-height: 100% !important;
-    overflow-y: auto !important;
-    display: block !important;
-}
-</style>
+    <style>
+        html { height: auto !important; overflow: auto !important; }
+        body { min-height: 100% !important; overflow-y: auto !important; display: block !important; }
+        /* loading bar style */
+        .spinner {
+            width: 45px;
+            height: 45px;
+            border: 5px solid #e5e7eb;
+            border-top: 5px solid #13ec5b;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display p-6 relative">
-<!-- Decorative Background Elements (Top Left) -->
-<div class="organic-shape top-[-5%] left-[-5%] w-64 h-64 md:w-96 md:h-96">
-<img class="w-full h-full object-contain grayscale" data-alt="Subtle botanical leaf pattern for background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIc_1VAiLdcbU_f921xfVukl4y3PAobbh1IyOnebtI67FlyrELb_EUvQsPKZXC8B9srfRybVwB14DyPHtVL3eHk9fGov-0ttSb4SGLIhT8xjDDqh3HmbPjuPoQyBn5-92okCUDy9pJmNLbBphFOWCEvQd2f-Xyz8IsBubdUfxxoq_NeP70TUW0-DeNmJhc-cPYFYhIvmYfz4darmPdDZ4EtTPIbOjqw5vbTNl0Gwtz78hOuX1ff18qfx0fIh7J0X5IMf1MtpRRcmMc"/>
-</div>
-<!-- Decorative Background Elements (Bottom Right) -->
-<div class="organic-shape bottom-[-5%] right-[-5%] w-64 h-64 md:w-96 md:h-96 rotate-180">
-<img class="w-full h-full object-contain grayscale" data-alt="Subtle botanical leaf pattern for background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxRoNtwDtGWnqBfq0EBxKUoMKo2uT7wD1WAQIDPzBywzoY5u79Ogc5vaVjtU3i-x2mY141Z99iDT_9mSTy_Eiws3HrIGrHsKFl63eyspnd2cU_VsO62drbaTwr7ZO1TCICP4kKq5XW5462lDYbCSBXcoU8fwPDs7ALuU2sz_wJy-I3IHjJ11zVdHIzv7F3rG_cQbA9FT0xvH2CYjc_867-iqSO2AEhu_2RC52H-SNz8dss_2d9hbE3K6p7cZu3j9fB0-YbiUw-cmP5"/>
-</div>
-<div class="max-w-md w-full z-10">
-<!-- Logo/Header Area -->
-<div class="text-center mb-8">
-<div class="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-4">
-<span class="material-icons text-primary text-3xl">spa</span>
-</div>
-<h1 class="text-3xl font-extrabold text-background-dark dark:text-white mb-2 tracking-tight">Nature's Glow</h1>
-<p class="text-zinc-600 dark:text-zinc-400 font-medium">Join our community of natural beauty lovers.</p>
-</div>
-<!-- Registration Card -->
-<div class="bg-white dark:bg-zinc-900 shadow-xl rounded-xl p-8 border border-zinc-100 dark:border-zinc-800">
-<form id="register-form" action="#" class="space-y-5">
-<!-- Full Name Field -->
-<div>
-<label class="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5" for="full-name">Full Name</label>
-<div class="relative">
-<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-lg">person_outline</span>
-<input class="w-full pl-10 pr-4 py-3 bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500" id="full-name" name="full-name" placeholder="John Doe" type="text"/>
-</div>
-</div>
-<!-- Email Field -->
-<div>
-<label class="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5" for="email">Email Address</label>
-<div class="relative">
-<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-lg">mail_outline</span>
-<input class="w-full pl-10 pr-4 py-3 bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500" id="email" name="email" placeholder="yuor email" type="email"/>
-</div>
-</div><!-- Password Field -->
-<div>
-<label class="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5" for="password">Password</label>
-<div class="relative">
-<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-lg">lock_outline</span>
-<input class="w-full pl-10 pr-10 py-3 bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500" id="password" name="password" placeholder="••••••••" type="password"/>
-<button class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600" type="button">
-<span class="material-icons text-lg">visibility_off</span>
-</button>
-</div>
-</div>
-<!-- Confirm Password Field -->
-<div>
-<label class="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5" for="confirm-password">Confirm Password</label>
-<div class="relative">
-<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-lg">verified_user</span>
-<input class="w-full pl-10 pr-4 py-3 bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500" id="confirm-password" name="confirm-password" placeholder="••••••••" type="password"/>
-</div>
-</div>
-<!-- Terms & Conditions -->
-<div class="flex items-start gap-3 py-1">
-<input class="mt-1 h-4 w-4 text-primary focus:ring-primary border-zinc-300 rounded" id="terms" type="checkbox"/>
-<label class="text-sm text-zinc-600 dark:text-zinc-400 leading-snug" for="terms">
+    <div class="organic-shape top-[-5%] left-[-5%] w-64 h-64 md:w-96 md:h-96">
+        <img class="w-full h-full object-contain grayscale" data-alt="Subtle botanical leaf pattern for background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIc_1VAiLdcbU_f921xfVukl4y3PAobbh1IyOnebtI67FlyrELb_EUvQsPKZXC8B9srfRybVwB14DyPHtVL3eHk9fGov-0ttSb4SGLIhT8xjDDqh3HmbPjuPoQyBn5-92okCUDy9pJmNLbBphFOWCEvQd2f-Xyz8IsBubdUfxxoq_NeP70TUW0-DeNmJhc-cPYFYhIvmYfz4darmPdDZ4EtTPIbOjqw5vbTNl0Gwtz78hOuX1ff18qfx0fIh7J0X5IMf1MtpRRcmMc"/>
+    </div>
+    <div class="organic-shape bottom-[-5%] right-[-5%] w-64 h-64 md:w-96 md:h-96 rotate-180">
+        <img class="w-full h-full object-contain grayscale" data-alt="Subtle botanical leaf pattern for background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxRoNtwDtGWnqBfq0EBxKUoMKo2uT7wD1WAQIDPzBywzoY5u79Ogc5vaVjtU3i-x2mY141Z99iDT_9mSTy_Eiws3HrIGrHsKFl63eyspnd2cU_VsO62drbaTwr7ZO1TCICP4kKq5XW5462lDYbCSBXcoU8fwPDs7ALuU2sz_wJy-I3IHjJ11zVdHIzv7F3rG_cQbA9FT0xvH2CYjc_867-iqSO2AEhu_2RC52H-SNz8dss_2d9hbE3K6p7cZu3j9fB0-YbiUw-cmP5"/>
+    </div>
+
+    <div class="max-w-md w-full z-10 mx-auto">
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-4">
+                <span class="material-icons text-primary text-3xl">spa</span>
+            </div>
+            <h1 class="text-3xl font-extrabold text-background-dark dark:text-white mb-2 tracking-tight">Nature's Glow</h1>
+            <p class="text-zinc-600 dark:text-zinc-400 font-medium">Join our community of natural beauty lovers.</p>
+        </div>
+
+        <div class="bg-white dark:bg-zinc-900 shadow-xl rounded-xl p-8 border border-zinc-100 dark:border-zinc-800">
+            <form id="register-form" action="#" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5" for="full-name">Full Name</label>
+                    <div class="relative">
+                        <span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-lg">person_outline</span>
+                        <input class="w-full pl-10 pr-4 py-3 bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500" id="full-name" name="full-name" placeholder="John Doe" type="text"/>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5" for="email">Email Address</label>
+                    <div class="relative">
+                        <span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-lg">mail_outline</span>
+                        <input class="w-full pl-10 pr-4 py-3 bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500" id="email" name="email" placeholder="yuor email" type="email"/>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5" for="password">Password</label>
+                    <div class="relative">
+                        <span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-lg">lock_outline</span>
+                        <input class="w-full pl-10 pr-10 py-3 bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500" id="password" name="password" placeholder="••••••••" type="password"/>
+                        <button class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600" type="button">
+                            <span class="material-icons text-lg">visibility_off</span>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5" for="confirm-password">Confirm Password</label>
+                    <div class="relative">
+                        <span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-lg">verified_user</span>
+                        <input class="w-full pl-10 pr-4 py-3 bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500" id="confirm-password" name="confirm-password" placeholder="••••••••" type="password"/>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 py-1">
+                    <input class="mt-1 h-4 w-4 text-primary focus:ring-primary border-zinc-300 rounded" id="terms" type="checkbox"/>
+                    <label class="text-sm text-zinc-600 dark:text-zinc-400 leading-snug" for="terms">
                         I agree to the <a class="text-primary hover:underline font-medium" href="#">Terms of Service</a> and <a class="text-primary hover:underline font-medium" href="#">Privacy Policy</a>.
                     </label>
-</div>
-<!-- Sign Up Button -->
-<button class="w-full bg-primary hover:bg-opacity-90 text-background-dark font-bold py-4 px-4 rounded-lg shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 group" type="submit">
+                </div>
+                <button class="w-full bg-primary hover:bg-opacity-90 text-background-dark font-bold py-4 px-4 rounded-lg shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 group" type="submit">
                     Sign Up
                     <span class="material-icons group-hover:translate-x-1 transition-transform">arrow_forward</span>
-</button>
-</form>
-<!-- Social Login Divider -->
-<div class="relative my-8 text-center">
-<span class="absolute inset-x-0 top-1/2 h-px bg-zinc-200 dark:bg-zinc-700 -translate-y-1/2"></span>
-<span class="relative bg-white dark:bg-zinc-900 px-4 text-sm text-zinc-500 font-medium">Or continue with</span>
-</div>
-<!-- Social Buttons -->
-<div class="grid grid-cols-2 gap-4">
-<button class="flex items-center justify-center gap-2 py-2.5 border border-zinc-200 dark:border-zinc-700 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all text-zinc-700 dark:text-zinc-300 font-medium text-sm">
-<img class="w-4 h-4" data-alt="Google logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0YaYKk7nbFLdzTPtwHeH8OJE_yfnTXs-TdUYmKsX4uhO-BAqyg7wBj_HkY--ugVhsSygcEbT_7CqYwf92a8KEzKTOw6LL4B5IwfI1aoE1xcNcIJ3FFQE3nAKY_yyzZpjG1HroPCGFP3SQ0FgEYY-VjEXCyiRfJdppy17ztKRQlbKwcHwo6IKbQS2vUh4zI5MBpnm3Z91SOw7y1wCemcKZXYEOQRLctBH2sMsiDJCvnj6ad9UWyL10QRkq_e5CIACkouC_9g-CSRV-"/>
+                </button>
+            </form>
+
+            <div class="relative my-8 text-center">
+                <span class="absolute inset-x-0 top-1/2 h-px bg-zinc-200 dark:bg-zinc-700 -translate-y-1/2"></span>
+                <span class="relative bg-white dark:bg-zinc-900 px-4 text-sm text-zinc-500 font-medium">Or continue with</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <button class="flex items-center justify-center gap-2 py-2.5 border border-zinc-200 dark:border-zinc-700 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all text-zinc-700 dark:text-zinc-300 font-medium text-sm">
+                    <img class="w-4 h-4" data-alt="Google logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0YaYKk7nbFLdzTPtwHeH8OJE_yfnTXs-TdUYmKsX4uhO-BAqyg7wBj_HkY--ugVhsSygcEbT_7CqYwf92a8KEzKTOw6LL4B5IwfI1aoE1xcNcIJ3FFQE3nAKY_yyzZpjG1HroPCGFP3SQ0FgEYY-VjEXCyiRfJdppy17ztKRQlbKwcHwo6IKbQS2vUh4zI5MBpnm3Z91SOw7y1wCemcKZXYEOQRLctBH2sMsiDJCvnj6ad9UWyL10QRkq_e5CIACkouC_9g-CSRV-"/>
                     Google
                 </button>
-<button class="flex items-center justify-center gap-2 py-2.5 border border-zinc-200 dark:border-zinc-700 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all text-zinc-700 dark:text-zinc-300 font-medium text-sm">
-<span class="material-icons text-sm">apple</span>
+                <button class="flex items-center justify-center gap-2 py-2.5 border border-zinc-200 dark:border-zinc-700 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all text-zinc-700 dark:text-zinc-300 font-medium text-sm">
+                    <span class="material-icons text-sm">apple</span>
                     Apple
                 </button>
-</div>
-</div>
-<!-- Login Link -->
-<p class="text-center mt-8 text-zinc-600 dark:text-zinc-400 font-medium">
+            </div>
+        </div>
+
+        <p class="text-center mt-8 text-zinc-600 dark:text-zinc-400 font-medium">
             Already have an account? 
             <a class="text-primary hover:underline font-bold ml-1" href="login.html">Log in here</a>
-</p>
-<!-- Brand Benefits -->
-<div class="mt-12 flex justify-between items-center text-xs text-zinc-400 font-bold uppercase tracking-widest px-4">
-<div class="flex items-center gap-1.5">
-<span class="material-icons text-primary text-sm">check_circle</span>
+        </p>
+
+        <div class="mt-12 flex justify-between items-center text-xs text-zinc-400 font-bold uppercase tracking-widest px-4">
+            <div class="flex items-center gap-1.5">
+                <span class="material-icons text-primary text-sm">check_circle</span>
                 100% Organic
             </div>
-<div class="flex items-center gap-1.5">
-<span class="material-icons text-primary text-sm">check_circle</span>
+            <div class="flex items-center gap-1.5">
+                <span class="material-icons text-primary text-sm">check_circle</span>
                 Cruelty Free
             </div>
-<div class="flex items-center gap-1.5">
-<span class="material-icons text-primary text-sm">check_circle</span>
+            <div class="flex items-center gap-1.5">
+                <span class="material-icons text-primary text-sm">check_circle</span>
                 Sustainable
             </div>
-</div>
-</div>
-        <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        </div>
+    </div>
 
-  // Firebase Config (Isticmaal kanaga saxda ah)
-  const firebaseConfig = {
-    apiKey: "AIzaSyCk4S0S7dvZrTN6q4oISLIWIXZNtHXRrvk",
-    authDomain: "my-websade.firebaseapp.com",
-    projectId: "my-websade",
-    appId: "1:34681878474:web:5d11bb422bf74008cdc133"
-  };
+    <div id="loader" class="fixed inset-0 bg-white/60 dark:bg-zinc-900/60 z-[500] hidden flex flex-col items-center justify-center backdrop-blur-sm">
+        <div class="spinner"></div>
+        <p class="mt-4 text-background-dark dark:text-white font-bold animate-pulse">Checking credentials...</p>
+    </div>
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-  const registerForm = document.getElementById('register-form');
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCk4S0S7dvZrTN6q4oISLIWIXZNtHXRrvk",
+            authDomain: "my-websade.firebaseapp.com",
+            projectId: "my-websade",
+            appId: "1:34681878474:web:5d11bb422bf74008cdc133"
+        };
 
-  registerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+        const registerForm = document.getElementById('register-form');
+        const loader = document.getElementById('loader');
 
-    // Shaqada abuurista isticmaalaha cusub
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        alert("Account-ka si guul leh ayaa loo abuuray! 🎉");
-        window.location.href = "home.html"; // Toos ugu kaxee Home Page-ka
-      })
-      .catch((error) => {
-        alert("Cillad: " + error.message);
-      });
-  });
-</script>
-<!--loading bar-->
-        <style>
-                .spinner {
-    width: 45px;
-    height: 45px;
-    border: 5px solid #e5e7eb;
-    border-top: 5px solid #13ec5b; /* Midabkaaga Primary-ga ah */
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-        </style>
-        <body>
-                <div id="loader" class="fixed inset-0 bg-white/60 dark:bg-zinc-900/60 z-[500] hidden flex flex-col items-center justify-center backdrop-blur-sm">
-    <div class="spinner"></div>
-    <p class="mt-4 text-background-dark dark:text-white font-bold animate-pulse">Checking credentials...</p>
-</div>
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
 
-        </body>
-        <script>
-                  const auth = getAuth(app);
-  const registerForm = document.getElementById('register-form');
-  const loader = document.getElementById('loader'); // Soo qaado loader-ka
+            // Hubi haddii password-yadu is leeyihiin
+            if (password !== confirmPassword) {
+                alert("Password-yadu isma laha!");
+                return;
+            }
 
-  registerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+            // 1. Muuji loader-ka markiiba
+            loader.classList.remove('hidden');
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-
-    // Hubi haddii password-yadu is leeyihiin ka hor intaanan Firebase la gaarin
-    if (password !== confirmPassword) {
-        alert("Password-yadu isma laha!");
-        return;
-    }
-
-    // 1. Muuji loader-ka markiiba
-    loader.classList.remove('hidden');
-
-    // 2. Shaqada Firebase
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Halkan loader-ka ha ka saarin waayo bogga ayaa isbeddelaya (Home.html)
-        alert("Account-ka si guul leh ayaa loo abuuray! 🎉");
-        window.location.href = "home.html";
-      })
-      .catch((error) => {
-        // 3. Haddii error dhaco, qari loader-ka si qofku u arko error-ka uuna u saxo
-        loader.classList.add('hidden');
-        alert("Cillad: " + error.message);
-      });
-  });
-
-        </script>
-</body></html>
+            // 2. Shaqada Firebase
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("Account-ka si guul leh ayaa loo abuuray! 🎉");
+                    window.location.href = "home.html";
+                })
+                .catch((error) => {
+                    // 3. Haddii error dhaco, qari loader-ka
+                    loader.classList.add('hidden');
+                    alert("Cillad: " + error.message);
+                });
+        });
+    </script>
+</body>
+</html>
