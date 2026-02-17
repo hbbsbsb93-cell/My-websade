@@ -404,23 +404,29 @@
     }
 
 //-------shqada Logout ka-----
-        // --- SHAFADA LOGOUT-KA ---
+        // 1. Soo dhoofiy xiriirka Firebase Auth
 import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 const auth = getAuth();
 const logoutBtn = document.getElementById('logout-link');
 
+// 2. Hubi in badhanku jiro ka dibna shaqada sii
 if (logoutBtn) {
     logoutBtn.addEventListener('click', (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Ka jooji inuu bogga refresh gareeyo
+
+        // 3. Amarka Logout-ka ee dhabta ah
         signOut(auth).then(() => {
-            // Marka Token-ka la tirtiro, u dir index.html
-            window.location.href = "index.html";
+            // Halkan Token-ka browser-ka waa laga saaray
+            console.log("User signed out successfully");
+            window.location.href = "index.html"; // U kaxee bogga hore
         }).catch((error) => {
-            console.error("Error signing out: ", error);
+            console.error("Logout Error:", error);
+            alert("Cillad: Ma suurtagalin in laga baxo ciwaanka.");
         });
     });
 }
+
 
 </script>
 </body></html>
