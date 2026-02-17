@@ -55,30 +55,37 @@
 </head>
 <body class="bg-background-light dark:bg-background-dark text-sage-900 dark:text-sage-50 font-display transition-colors duration-300">
 <!--kashaysiinta batonka menu-->
-<div id="side-menu" class="fixed top-0 left-0 h-full w-64 bg-white dark:bg-sage-900 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out shadow-lg border-r border-sage-100 dark:border-sage-800 flex flex-col">
+<div id="side-menu" class="fixed top-0 left-0 h-full w-72 bg-white dark:bg-sage-900 z-[100] transform -translate-x-full transition-transform duration-300 ease-in-out shadow-2xl flex flex-col">
+    
     <div class="p-6 border-b border-sage-100 dark:border-sage-800 flex justify-between items-center">
         <h2 class="text-xl font-bold text-sage-900 dark:text-white">Nature's Glow</h2>
         <button id="close-menu" class="p-2 text-sage-500 hover:bg-sage-100 dark:hover:bg-sage-800 rounded-full">
             <span class="material-icons">close</span>
         </button>
     </div>
-    
-    <div class="p-6 space-y-4 flex-grow overflow-y-auto">
-        <a href="#" class="flex items-center gap-3 p-3 text-sage-700 dark:text-sage-200 hover:bg-primary/10 rounded-lg transition-colors">
-            <span class="material-icons">person</span> My Profile
+
+    <div class="p-6 space-y-2 flex-grow overflow-y-auto">
+        <a href="#" class="flex items-center gap-4 p-4 text-sage-700 dark:text-sage-200 hover:bg-sage-100 dark:hover:bg-sage-800 rounded-xl transition-all group">
+            <span class="material-icons-outlined text-sage-400 group-hover:text-primary">person</span>
+            <span class="font-medium">My Profile</span>
         </a>
-        <a href="#" class="flex items-center gap-3 p-3 text-sage-700 dark:text-sage-200 hover:bg-primary/10 rounded-lg transition-colors">
-            <span class="material-icons">shopping_bag</span> My Orders
+
+        <a href="#" class="flex items-center gap-4 p-4 text-sage-700 dark:text-sage-200 hover:bg-sage-100 dark:hover:bg-sage-800 rounded-xl transition-all group">
+            <span class="material-icons-outlined text-sage-400 group-hover:text-primary">shopping_bag</span>
+            <span class="font-medium">My Orders</span>
         </a>
-        <a href="#" class="flex items-center gap-3 p-3 text-sage-700 dark:text-sage-200 hover:bg-primary/10 rounded-lg transition-colors">
-            <span class="material-icons">favorite</span> Wishlist
+
+        <a href="#" class="flex items-center gap-4 p-4 text-sage-700 dark:text-sage-200 hover:bg-sage-100 dark:hover:bg-sage-800 rounded-xl transition-all group">
+            <span class="material-icons-outlined text-sage-400 group-hover:text-primary">favorite</span>
+            <span class="font-medium">Wishlist</span>
         </a>
-        <hr class="border-sage-100 dark:border-sage-800">
-        <a href="index.html" class="flex items-center gap-3 p-3 text-red-500 hover:bg-red-50 rounded-lg transition-colors">
-            <span class="material-icons">logout</span> Logout
-        </a>
-    </div>
-</div>
+
+        <hr class="border-sage-100 dark:border-sage-800 my-2">
+
+        <a href="javascript:void(0)" id="logout-link" class="flex items-center gap-4 p-4 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all">
+    <span class="material-icons-outlined">logout</span>
+    <span class="font-medium">Logout</span>
+</a>
 <!-- Navigation Bar -->
 <nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-sage-200 dark:border-sage-800">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -390,5 +397,22 @@ openMenuBtn.addEventListener('click', () => {
 closeMenuBtn.addEventListener('click', () => {
     sideMenu.classList.add('-translate-x-full'); // Menu-ga dib u qari
 });
+</script>
+            <script>
+    const logoutBtn = document.getElementById('logout-link');
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            // 1. Tirtir dhammaan xogta aqoonsiga ee browser-ka (ID-ga, Token-ka, iwm)
+            localStorage.clear(); // Tan ayaa tirtirta xogta joogtada ah
+            sessionStorage.clear(); // Tan ayaa tirtirta xogta inta browser-ku furnaa
+
+            // 2. Farriin yar u muuji (ikhtiyaari)
+            console.log("Xogta waa la tirtiray, qofku waa baxay.");
+
+            // 3. U wareeji bogga Login-ka ama Index-ka
+            window.location.href = 'index.html';
+        });
+    }
 </script>
 </body></html>
