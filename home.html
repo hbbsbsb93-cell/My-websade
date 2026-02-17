@@ -73,7 +73,7 @@
 <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-sage-400">
 <span class="material-icons-outlined">search</span>
 </span>
-<input class="block w-full pl-10 pr-3 py-2.5 border-none bg-sage-100 dark:bg-sage-900/50 rounded-xl leading-5 focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-sage-800 transition-all text-sage-900 dark:text-white placeholder-sage-400" placeholder="Search for oils, soaps, or creams..." type="text"/>
+<input id="product-search" class="block w-full pl-10 pr-3 py-2.5 border-none bg-sage-100 dark:bg-sage-900/50 rounded-xl leading-5 focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-sage-800 transition-all text-sage-900 dark:text-white placeholder-sage-400" placeholder="Search for oils, soaps, or creams..." type="text"/>
 </div>
 </div>
 <!-- Right: Icons -->
@@ -311,4 +311,26 @@
 </div>
 </div>
 </footer>
+<script>
+    // 1. Soo qabo Search Bar-ka iyo dhamaan alaabta
+    const searchBar = document.getElementById('product-search');
+    const products = document.querySelectorAll('.product-card');
+
+    // 2. Dhageyso marka qofku wax qorayo (Event Listener)
+    searchBar.addEventListener('keyup', (e) => {
+        const searchString = e.target.value.toLowerCase(); // Waxa la qoray oo xarfo yaryar laga dhigay
+
+        products.forEach((product) => {
+            // 3. Soo qabo magaca alaabta ee ku dhex jira <h3>
+            const productName = product.querySelector('h3').innerText.toLowerCase();
+            
+            // 4. Logic-ga muujinta ama qarsashada
+            if (productName.includes(searchString)) {
+                product.style.display = 'flex'; // Tusi haddii magacu jiro
+            } else {
+                product.style.display = 'none'; // Qari haddii uusan jirin
+            }
+        });
+    });
+</script>
 </body></html>
