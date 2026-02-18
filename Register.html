@@ -1,4 +1,4 @@
-⁸<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -150,8 +150,16 @@
     </div>
 <head>
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script type="text/javascript">
+  (function() {
+    // Public Key-gaaga rasmiga ah
+    emailjs.init("wm5gF1fpGmTPyCjqP"); 
+  })();
+</script>
+
 <script type="module">
-    // 1. Initialize Firebase (Hal mar uun)
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
     const firebaseConfig = {
@@ -163,48 +171,44 @@
 
     const app = initializeApp(firebaseConfig);
 
-    // 2. Qabo Elements-ka (Form-ka iyo Loader-ka)
-    const registerForm = document.getElementById('register-form') || document.getElementById('registrationForm');
+    const registerForm = document.getElementById('register-form');
     const loader = document.getElementById('loader');
     const loaderText = loader ? loader.querySelector('p') : null;
 
     if (registerForm) {
         registerForm.addEventListener('submit', (e) => {
-            // Jooji in boggu is-refresh gareeyo
             e.preventDefault();
 
-            // 3. Soo qaado xogta macmiilka
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const confirmPassField = document.getElementById('confirm-password');
+            const confirmPass = document.getElementById('confirm-password').value;
 
             // Hubi Password-ka
-            if (confirmPassField && password !== confirmPassField.value) {
-                alert("Password-yadu isma laha!");
+            if (password !== confirmPass) {
+                alert("⚠️ Password-yadu isma laha!");
                 return;
             }
 
-            // 4. Shaqada Loader-ka bilow
+            // Bilow Loader-ka
             if (loader) {
                 loader.classList.remove('hidden');
                 if (loaderText) loaderText.innerText = "Koodhkii xaqiijinta ayaa loo dirayaa email-kaaga...";
             }
 
-            // 5. Dhal OTP (6 nambar ah)
+            // Dhal OTP
             const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-            // 6. Ku kaydi SessionStorage si bogga Ver.html uu u arko
+            // Kaydi xogta si kumeel gaar ah
             sessionStorage.setItem('generatedOTP', otpCode);
             sessionStorage.setItem('pendingEmail', email);
             sessionStorage.setItem('pendingPassword', password);
 
-            
-            // 7. U dir Email-ka adigoo isticmaalaya EmailJS
             const templateParams = {
                 email: email,       
                 passcode: otpCode   
             };
 
+            // U dir Email-ka
             emailjs.send('service_91mb9t5', 'template_6v249vp', templateParams)
                 .then(function() {
                     if (loaderText) loaderText.innerText = "Guul! Koodhkii waa la diray...";
@@ -213,24 +217,12 @@
                     }, 1200); 
                 })
                 .catch(function(error) {
-                    // TANI WAA QAYBTA KA DHIMAN KOODHKAAGA:
-                    if (loader) loader.classList.add('hidden'); // Jooji Loading-ka haddii ay cillad dhacdo
-                    
-                    // Fariin cad u sheeg macmiilka
-                    alert("Cillad: Koodhkii waa la diri waayey. Fadlan iska hubi internet-kaaga ama dib u isku day.");
-                    
-                    console.error("EmailJS Error details:", error);
+                    if (loader) loader.classList.add('hidden'); 
+                    alert("Cillad: Koodhkii lama diri karo. Hubi internet-kaaga.");
+                    console.error("EmailJS Error:", error);
                 });
-            
-    
-</script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-<script type="text/javascript">
-  (function() {
-    // KA BEDDEL: "YOUR_PUBLIC_KEY" ku beddel Public Key-gaaga rasmiga ah
-    emailjs.init("wm5gF1fpGmTPyCjqP"); 
-  })();
+        }); // Halkan baa xidhidhka form-ka ahaa
+    } 
 </script>
 
 </body>
