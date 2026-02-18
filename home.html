@@ -363,55 +363,32 @@
 <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-[90] hidden transition-opacity"></div>
 <script>
     // --- SHAKHADA SEARCH-KA ---
+const searchBar = document.getElementById('product-search');
+    const products = document.querySelectorAll('.product-card');
 
-<script type="module">
-    // 1. Soo dhoofinta Firebase Auth
-    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    const auth = getAuth();
+    searchBar.addEventListener('keyup', (e) => {
+        const searchString = e.target.value.toLowerCase();
+        products.forEach(product => {
+            const productName = product.querySelector('h3').innerText.toLowerCase();
+            product.style.display = productName.includes(searchString) ? 'flex' : 'none';
+        });
+    });
 
-    // 2. Aqoonsiga walxaha HTML-ka
+    // --- SHAKHADA MENU-GA ---
     const openMenuBtn = document.getElementById('open-menu');
     const closeMenuBtn = document.getElementById('close-menu');
     const sideMenu = document.getElementById('side-menu');
     const overlay = document.getElementById('sidebar-overlay');
-    const logoutBtn = document.getElementById('logout-link');
-    const searchBar = document.getElementById('product-search');
-    const products = document.querySelectorAll('.product-card');
 
-    // 3. Shaqada Side Menu-ga
-    if (openMenuBtn && sideMenu && overlay) {
-        const toggleMenu = (isOpen) => {
-            sideMenu.classList.toggle('-translate-x-full', !isOpen);
-            overlay.classList.toggle('hidden', !isOpen);
-        };
+    openMenuBtn.addEventListener('click', () => {
+        sideMenu.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+    });
 
-        openMenuBtn.addEventListener('click', () => toggleMenu(true));
-        closeMenuBtn.addEventListener('click', () => toggleMenu(false));
-        overlay.addEventListener('click', () => toggleMenu(false));
-    }
-
-    // 4. Shaqada Search-ka
-    if (searchBar) {
-        searchBar.addEventListener('keyup', (e) => {
-            const term = e.target.value.toLowerCase();
-            products.forEach(p => {
-                const name = p.querySelector('h3').innerText.toLowerCase();
-                p.style.display = name.includes(term) ? 'flex' : 'none';
-            });
-        });
-    }
-
-    // 5. Shaqada Logout-ka
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            signOut(auth).then(() => {
-                localStorage.clear();
-                sessionStorage.clear();
-                window.location.href = "index.html"; 
-            }).catch(err => console.error("Logout Error:", err));
-        });
-    }
+    const closeAll = () => {
+        sideMenu.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+    };
 </script>
         
 </body></html>
