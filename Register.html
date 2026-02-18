@@ -148,7 +148,14 @@
         <div class="spinner"></div>
         <p class="mt-4 text-background-dark dark:text-white font-bold animate-pulse">Checking credentials...</p>
     </div>
-
+<head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("Wm5gF1fpGmTPyCjqP"); // Furahaagii waa kan
+       })();
+    </script>
+</head>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -196,5 +203,56 @@
                 });
         });
     </script>
+<script type="module">
+  // 1. Soo dhuuqi Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  
+  // Xogtaada Firebase (Halkan geli Config-gaaga dhabta ah)
+  const firebaseConfig = { 
+    apiKey: "AIza...",
+    authDomain: "...",
+    projectId: "...",
+    storageBucket: "...",
+    messagingSenderId: "...",
+    appId: "..."
+  };
+  const app = initializeApp(firebaseConfig);
+
+  // 2. Qabo Form-ka Register-ka
+  const registerForm = document.getElementById('registrationForm');
+
+  if (registerForm) {
+    registerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // 3. Dhal nambar 6 xaraf ah (OTP)
+      const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+      // 4. Ku kaydi SessionStorage (Si Verification.html u helo)
+      sessionStorage.setItem('generatedOTP', otpCode);
+      sessionStorage.setItem('pendingEmail', email);
+      sessionStorage.setItem('pendingPassword', password);
+
+      // 5. U dir Email-ka adigoo isticmaalaya EmailJS
+      const templateParams = {
+        email: email,       // Waxay u dhaxaysaa {{email}} ee Template-kaaga
+        passcode: otpCode   // Waxay u dhaxaysaa {{passcode}} ee Template-kaaga
+      };
+
+      // Service ID-gaaga: service_91mb9t5
+      // Template ID: template_6v249vp (Halkan geli koodhka template-kaaga dhabta ah)
+      emailjs.send('service_91mb9t5', 'template_6v249vp', templateParams)
+        .then(function() {
+          alert("Koodhkii xaqiijinta waa loo diray email-kaaga!");
+          window.location.href = "Verification.html"; // U kaxee bogga OTP-ga
+        }, function(error) {
+          alert("Email-ka waa la diri waayey: " + JSON.stringify(error));
+        });
+    });
+  }
+</script>
 </body>
 </html>
