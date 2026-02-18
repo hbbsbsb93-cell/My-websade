@@ -198,32 +198,30 @@
             sessionStorage.setItem('pendingEmail', email);
             sessionStorage.setItem('pendingPassword', password);
 
+            
             // 7. U dir Email-ka adigoo isticmaalaya EmailJS
             const templateParams = {
                 email: email,       
                 passcode: otpCode   
             };
 
-            // Service ID: service_91mb9t5 | Template ID: template_6v249vp
             emailjs.send('service_91mb9t5', 'template_6v249vp', templateParams)
                 .then(function() {
-                    // Markay guulaysato
                     if (loaderText) loaderText.innerText = "Guul! Koodhkii waa la diray...";
-                    
                     setTimeout(() => {
                         window.location.href = "Ver.html"; 
                     }, 1200); 
                 })
                 .catch(function(error) {
-                    // Haddii ay fashilanto, qari loader-ka si loo arko error-ka
-                    if (loader) loader.classList.add('hidden');
-                    alert("Cillad: Email-ka waa la diri waayey. Iska hubi internet-ka.");
-                    console.error("EmailJS Error:", error);
+                    // TANI WAA QAYBTA KA DHIMAN KOODHKAAGA:
+                    if (loader) loader.classList.add('hidden'); // Jooji Loading-ka haddii ay cillad dhacdo
+                    
+                    // Fariin cad u sheeg macmiilka
+                    alert("Cillad: Koodhkii waa la diri waayey. Fadlan iska hubi internet-kaaga ama dib u isku day.");
+                    
+                    console.error("EmailJS Error details:", error);
                 });
-        });
-    } else {
-        console.error("Cillad: Ma jiro Form leh ID-ga 'register-form' ama 'registrationForm'");
-    }
+    
 </script>
 </body>
 </html>
