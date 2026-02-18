@@ -62,7 +62,7 @@
         </div>
 
         <div class="bg-white dark:bg-zinc-900 shadow-xl rounded-xl p-8 border border-zinc-100 dark:border-zinc-800">
-            <form id="register-form" action="#" class="space-y-5">
+            <form id="register-form" class="space-y-5">
                 <div>
                     <label class="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5" for="full-name">Full Name</label>
                     <div class="relative">
@@ -149,72 +149,9 @@
         <p class="mt-4 text-background-dark dark:text-white font-bold animate-pulse">Checking credentials...</p>
     </div>
 <head>
+
 <script type="module">
-    // 1. Soo dhuuqi Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-
-    // Firebase Config-gaaga rasmiga ah
-    const firebaseConfig = {
-        apiKey: "AIzaSyCk4S0S7dvZrTN6q4oISLIWIXZNtHXRrvk",
-        authDomain: "my-websade.firebaseapp.com",
-        projectId: "my-websade",
-        appId: "1:34681878474:web:5d11bb422bf74008cdc133"
-    };
-
-    const app = initializeApp(firebaseConfig);
-
-    // 2. Qabo Form-ka iyo Loader-ka
-    // Waxaan isticmaalay labada ID si uu midka jira u qabto
-    const registerForm = document.getElementById('register-form') || document.getElementById('registrationForm');
-    const loader = document.getElementById('loader');
-
-    if (registerForm) {
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            // Soo qaado xogta laga buuxiyay form-ka
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassField = document.getElementById('confirm-password');
-
-            // Hubi Password-ka haddii uu jiro Confirm Password field
-            if (confirmPassField && password !== confirmPassField.value) {
-                alert("Password-yadu isma laha!");
-                return;
-            }
-
-            // 1. Muuji loader-ka inta email-ku baxayo
-            if (loader) loader.classList.remove('hidden');
-
-            // 2. Dhal nambar 6 xaraf ah (OTP)
-            const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-
-            // 3. Ku kaydi SessionStorage si bogga Verification.html uu u arko
-            sessionStorage.setItem('generatedOTP', otpCode);
-            sessionStorage.setItem('pendingEmail', email);
-            sessionStorage.setItem('pendingPassword', password);
-
-            // 4. U dir Email-ka adigoo isticmaalaya EmailJS
-            const templateParams = {
-                email: email,       // Waxay tagaysaa {{email}}
-                passcode: otpCode   // Waxay tagaysaa {{passcode}}
-            };
-
-            
-                })
-                .catch(function(error) {
-                    // Haddii error dhaco, qari loader-ka
-                    if (loader) loader.classList.add('hidden');
-                    alert("Cillad: Email-ka waa la diri waayey. Iska hubi internet-ka ama EmailJS settings.");
-                    console.error("EmailJS Error:", error);
-                });
-        });
-    } else {
-        console.error("Cillad: Ma jiro Form leh ID-ga 'register-form' ama 'registrationForm'");
-    }
-
-    
-
+    // 1. Initialize Firebase (Hal mar uun)
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
     const firebaseConfig = {
@@ -226,60 +163,67 @@
 
     const app = initializeApp(firebaseConfig);
 
+    // 2. Qabo Elements-ka (Form-ka iyo Loader-ka)
     const registerForm = document.getElementById('register-form') || document.getElementById('registrationForm');
     const loader = document.getElementById('loader');
     const loaderText = loader ? loader.querySelector('p') : null;
 
     if (registerForm) {
         registerForm.addEventListener('submit', (e) => {
+            // Jooji in boggu is-refresh gareeyo
             e.preventDefault();
 
+            // 3. Soo qaado xogta macmiilka
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const confirmPassField = document.getElementById('confirm-password');
 
+            // Hubi Password-ka
             if (confirmPassField && password !== confirmPassField.value) {
                 alert("Password-yadu isma laha!");
                 return;
             }
 
-            // 1. Shaqada Loader-ka bilow (U sheeg in koodhka la dirayo)
+            // 4. Shaqada Loader-ka bilow
             if (loader) {
                 loader.classList.remove('hidden');
                 if (loaderText) loaderText.innerText = "Koodhkii xaqiijinta ayaa loo dirayaa email-kaaga...";
             }
 
+            // 5. Dhal OTP (6 nambar ah)
             const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
 
+            // 6. Ku kaydi SessionStorage si bogga Ver.html uu u arko
             sessionStorage.setItem('generatedOTP', otpCode);
             sessionStorage.setItem('pendingEmail', email);
             sessionStorage.setItem('pendingPassword', password);
 
+            // 7. U dir Email-ka adigoo isticmaalaya EmailJS
             const templateParams = {
-                email: email,
-                passcode: otpCode
+                email: email,       
+                passcode: otpCode   
             };
 
-            // 2. EmailJS Service
+            // Service ID: service_91mb9t5 | Template ID: template_6v249vp
             emailjs.send('service_91mb9t5', 'template_6v249vp', templateParams)
                 .then(function() {
-                    // 3. Markay guulaysato, loader-ka u sheeg in la diray ka hor intaanan la weecin
-                    if (loaderText) loaderText.innerText = "Guul! Waa la diray...";
+                    // Markay guulaysato
+                    if (loaderText) loaderText.innerText = "Guul! Koodhkii waa la diray...";
                     
                     setTimeout(() => {
                         window.location.href = "Ver.html"; 
-                    }, 1000); // 1 ilbiriqsi sug si uu macmiilku u arko farriinta
+                    }, 1200); 
                 })
                 .catch(function(error) {
-                    // 4. Haddii ay fashilanto, loader-ka qari si loo arko error-ka
+                    // Haddii ay fashilanto, qari loader-ka si loo arko error-ka
                     if (loader) loader.classList.add('hidden');
-                    alert("Cillad: Email-kii waa la diri waayey. Iska hubi internet-kaaga.");
+                    alert("Cillad: Email-ka waa la diri waayey. Iska hubi internet-ka.");
                     console.error("EmailJS Error:", error);
                 });
         });
+    } else {
+        console.error("Cillad: Ma jiro Form leh ID-ga 'register-form' ama 'registrationForm'");
     }
 </script>
-
-
 </body>
 </html>
