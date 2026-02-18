@@ -200,11 +200,7 @@
                 passcode: otpCode   // Waxay tagaysaa {{passcode}}
             };
 
-            // Service ID: service_91mb9t5 | Template ID: template_6v249vp
-            emailjs.send('service_91mb9t5', 'template_6v249vp', templateParams)
-                .then(function() {
-                    alert("Koodhkii xaqiijinta waa loo diray email-kaaga! 🎉");
-                    window.location.href = "Ver.html"; 
+            
                 })
                 .catch(function(error) {
                     // Haddii error dhaco, qari loader-ka
@@ -216,7 +212,74 @@
     } else {
         console.error("Cillad: Ma jiro Form leh ID-ga 'register-form' ama 'registrationForm'");
     }
+
+    
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCk4S0S7dvZrTN6q4oISLIWIXZNtHXRrvk",
+        authDomain: "my-websade.firebaseapp.com",
+        projectId: "my-websade",
+        appId: "1:34681878474:web:5d11bb422bf74008cdc133"
+    };
+
+    const app = initializeApp(firebaseConfig);
+
+    const registerForm = document.getElementById('register-form') || document.getElementById('registrationForm');
+    const loader = document.getElementById('loader');
+    const loaderText = loader ? loader.querySelector('p') : null;
+
+    if (registerForm) {
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassField = document.getElementById('confirm-password');
+
+            if (confirmPassField && password !== confirmPassField.value) {
+                alert("Password-yadu isma laha!");
+                return;
+            }
+
+            // 1. Shaqada Loader-ka bilow (U sheeg in koodhka la dirayo)
+            if (loader) {
+                loader.classList.remove('hidden');
+                if (loaderText) loaderText.innerText = "Koodhkii xaqiijinta ayaa loo dirayaa email-kaaga...";
+            }
+
+            const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+            sessionStorage.setItem('generatedOTP', otpCode);
+            sessionStorage.setItem('pendingEmail', email);
+            sessionStorage.setItem('pendingPassword', password);
+
+            const templateParams = {
+                email: email,
+                passcode: otpCode
+            };
+
+            // 2. EmailJS Service
+            emailjs.send('service_91mb9t5', 'template_6v249vp', templateParams)
+                .then(function() {
+                    // 3. Markay guulaysato, loader-ka u sheeg in la diray ka hor intaanan la weecin
+                    if (loaderText) loaderText.innerText = "Guul! Waa la diray...";
+                    
+                    setTimeout(() => {
+                        window.location.href = "Ver.html"; 
+                    }, 1000); // 1 ilbiriqsi sug si uu macmiilku u arko farriinta
+                })
+                .catch(function(error) {
+                    // 4. Haddii ay fashilanto, loader-ka qari si loo arko error-ka
+                    if (loader) loader.classList.add('hidden');
+                    alert("Cillad: Email-kii waa la diri waayey. Iska hubi internet-kaaga.");
+                    console.error("EmailJS Error:", error);
+                });
+        });
+    }
 </script>
+
 
 </body>
 </html>
