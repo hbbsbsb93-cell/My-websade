@@ -149,110 +149,74 @@
         <p class="mt-4 text-background-dark dark:text-white font-bold animate-pulse">Checking credentials...</p>
     </div>
 <head>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-       (function(){
-          emailjs.init("Wm5gF1fpGmTPyCjqP"); // Furahaagii waa kan
-       })();
-    </script>
-</head>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+<script type="module">
+    // 1. Soo dhuuqi Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
-        // Firebase Config
-        const firebaseConfig = {
-            apiKey: "AIzaSyCk4S0S7dvZrTN6q4oISLIWIXZNtHXRrvk",
-            authDomain: "my-websade.firebaseapp.com",
-            projectId: "my-websade",
-            appId: "1:34681878474:web:5d11bb422bf74008cdc133"
-        };
+    // Firebase Config-gaaga rasmiga ah
+    const firebaseConfig = {
+        apiKey: "AIzaSyCk4S0S7dvZrTN6q4oISLIWIXZNtHXRrvk",
+        authDomain: "my-websade.firebaseapp.com",
+        projectId: "my-websade",
+        appId: "1:34681878474:web:5d11bb422bf74008cdc133"
+    };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+    const app = initializeApp(firebaseConfig);
 
-        const registerForm = document.getElementById('register-form');
-        const loader = document.getElementById('loader');
+    // 2. Qabo Form-ka iyo Loader-ka
+    // Waxaan isticmaalay labada ID si uu midka jira u qabto
+    const registerForm = document.getElementById('register-form') || document.getElementById('registrationForm');
+    const loader = document.getElementById('loader');
 
+    if (registerForm) {
         registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
+            // Soo qaado xogta laga buuxiyay form-ka
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
+            const confirmPassField = document.getElementById('confirm-password');
 
-            // Hubi haddii password-yadu is leeyihiin
-            if (password !== confirmPassword) {
+            // Hubi Password-ka haddii uu jiro Confirm Password field
+            if (confirmPassField && password !== confirmPassField.value) {
                 alert("Password-yadu isma laha!");
                 return;
             }
 
-            // 1. Muuji loader-ka markiiba
-            loader.classList.remove('hidden');
+            // 1. Muuji loader-ka inta email-ku baxayo
+            if (loader) loader.classList.remove('hidden');
 
-            // 2. Shaqada Firebase
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    alert("Account-ka si guul leh ayaa loo abuuray! 🎉");
-                    window.location.href = "home.html";
+            // 2. Dhal nambar 6 xaraf ah (OTP)
+            const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+            // 3. Ku kaydi SessionStorage si bogga Verification.html uu u arko
+            sessionStorage.setItem('generatedOTP', otpCode);
+            sessionStorage.setItem('pendingEmail', email);
+            sessionStorage.setItem('pendingPassword', password);
+
+            // 4. U dir Email-ka adigoo isticmaalaya EmailJS
+            const templateParams = {
+                email: email,       // Waxay tagaysaa {{email}}
+                passcode: otpCode   // Waxay tagaysaa {{passcode}}
+            };
+
+            // Service ID: service_91mb9t5 | Template ID: template_6v249vp
+            emailjs.send('service_91mb9t5', 'template_6v249vp', templateParams)
+                .then(function() {
+                    alert("Koodhkii xaqiijinta waa loo diray email-kaaga! 🎉");
+                    window.location.href = "Verification.html"; 
                 })
-                .catch((error) => {
-                    // 3. Haddii error dhaco, qari loader-ka
-                    loader.classList.add('hidden');
-                    alert("Cillad: " + error.message);
+                .catch(function(error) {
+                    // Haddii error dhaco, qari loader-ka
+                    if (loader) loader.classList.add('hidden');
+                    alert("Cillad: Email-ka waa la diri waayey. Iska hubi internet-ka ama EmailJS settings.");
+                    console.error("EmailJS Error:", error);
                 });
         });
-    </script>
-<script type="module">
-  // 1. Soo dhuuqi Firebase
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  
-  // Xogtaada Firebase (Halkan geli Config-gaaga dhabta ah)
-  const firebaseConfig = { 
-    apiKey: "AIza...",
-    authDomain: "...",
-    projectId: "...",
-    storageBucket: "...",
-    messagingSenderId: "...",
-    appId: "..."
-  };
-  const app = initializeApp(firebaseConfig);
-
-  // 2. Qabo Form-ka Register-ka
-  const registerForm = document.getElementById('registrationForm');
-
-  if (registerForm) {
-    registerForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      // 3. Dhal nambar 6 xaraf ah (OTP)
-      const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-
-      // 4. Ku kaydi SessionStorage (Si Verification.html u helo)
-      sessionStorage.setItem('generatedOTP', otpCode);
-      sessionStorage.setItem('pendingEmail', email);
-      sessionStorage.setItem('pendingPassword', password);
-
-      // 5. U dir Email-ka adigoo isticmaalaya EmailJS
-      const templateParams = {
-        email: email,       // Waxay u dhaxaysaa {{email}} ee Template-kaaga
-        passcode: otpCode   // Waxay u dhaxaysaa {{passcode}} ee Template-kaaga
-      };
-
-      // Service ID-gaaga: service_91mb9t5
-      // Template ID: template_6v249vp (Halkan geli koodhka template-kaaga dhabta ah)
-      emailjs.send('service_91mb9t5', 'template_6v249vp', templateParams)
-        .then(function() {
-          alert("Koodhkii xaqiijinta waa loo diray email-kaaga!");
-          window.location.href = "Verification.html"; // U kaxee bogga OTP-ga
-        }, function(error) {
-          alert("Email-ka waa la diri waayey: " + JSON.stringify(error));
-        });
-    });
-  }
+    } else {
+        console.error("Cillad: Ma jiro Form leh ID-ga 'register-form' ama 'registrationForm'");
+    }
 </script>
+
 </body>
 </html>
