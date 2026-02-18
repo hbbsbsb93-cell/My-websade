@@ -363,32 +363,43 @@
 <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-[90] hidden transition-opacity"></div>
 <script>
     // --- SHAKHADA SEARCH-KA ---
-const searchBar = document.getElementById('product-search');
-    const products = document.querySelectorAll('.product-card');
-
-    searchBar.addEventListener('keyup', (e) => {
-        const searchString = e.target.value.toLowerCase();
-        products.forEach(product => {
-            const productName = product.querySelector('h3').innerText.toLowerCase();
-            product.style.display = productName.includes(searchString) ? 'flex' : 'none';
-        });
-    });
-
-    // --- SHAKHADA MENU-GA ---
+<script>
+    // 1. SELECT ELEMENTS
     const openMenuBtn = document.getElementById('open-menu');
     const closeMenuBtn = document.getElementById('close-menu');
     const sideMenu = document.getElementById('side-menu');
     const overlay = document.getElementById('sidebar-overlay');
+    const searchBar = document.getElementById('product-search');
+    const products = document.querySelectorAll('.product-card');
 
-    openMenuBtn.addEventListener('click', () => {
+    // 2. SIDEBAR FUNCTIONS
+    const openSidebar = () => {
         sideMenu.classList.remove('-translate-x-full');
         overlay.classList.remove('hidden');
-    });
+    };
 
-    const closeAll = () => {
+    const closeSidebar = () => {
         sideMenu.classList.add('-translate-x-full');
         overlay.classList.add('hidden');
     };
+
+    // 3. EVENT LISTENERS
+    openMenuBtn.addEventListener('click', openSidebar);
+    closeMenuBtn.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    // 4. SEARCH FUNCTIONALITY
+    searchBar.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        products.forEach(product => {
+            const title = product.querySelector('h3').innerText.toLowerCase();
+            if(title.includes(term)) {
+                product.style.display = 'flex';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    });
 </script>
         
 </body></html>
