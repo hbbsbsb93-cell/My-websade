@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nature's Glow OTP Verification</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --brand-cream: #FDFBF7;
+            --brand-green: #2D5A27;
+            --brand-green-light: #E9F0E8;
+            --text-dark: #1A1A1A;
+            --text-muted: #666666;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--brand-cream);
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .otp-input {
+            @apply w-12 h-14 md:w-14 md:h-16 text-center text-2xl font-semibold border-2 border-gray-200 rounded-lg focus:border-[var(--brand-green)] focus:ring-0 transition-all outline-none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+<div class="mb-12 text-center">
+<div class="flex items-center justify-center gap-2 mb-2">
+<span class="material-symbols-outlined text-[var(--brand-green)] text-3xl">eco</span>
+<span class="font-serif text-2xl font-bold tracking-tight text-[var(--brand-green)]">Nature's Glow</span>
+</div>
+</div>
+<div class="w-full max-w-lg bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.04)] p-10 md:p-14 border border-gray-50">
+<div class="text-center mb-10">
+<h1 class="font-serif text-3xl font-bold text-[var(--text-dark)] mb-4">Verify Your Account</h1>
+<p class="text-[var(--text-muted)] text-sm md:text-base leading-relaxed">
+                There are 6 numbers that are sent to this email:<br/>
+<span class="font-semibold text-[var(--text-dark)]">tusaale@gmail.com</span>
+</p>
+</div>
+<form class="space-y-10" onsubmit="return false;">
+<div class="flex justify-between gap-2 md:gap-4">
+<input class="otp-input" maxlength="1" type="text" value="4"/>
+<input class="otp-input" maxlength="1" type="text" value="8"/>
+<input class="otp-input" maxlength="1" type="text"/>
+<input class="otp-input" maxlength="1" type="text"/>
+<input class="otp-input" maxlength="1" type="text"/>
+<input class="otp-input" maxlength="1" type="text"/>
+</div>
+<button id="verify-btn"class="w-full bg-[var(--brand-green)] hover:bg-[#23461e] text-white font-semibold py-4 rounded-xl transition-colors duration-200 shadow-lg shadow-green-900/10" type="submit">
+                Verify
+            </button>
+</form>
+<div class="mt-10 text-center">
+<p class="text-[var(--text-muted)] text-sm">
+                Didn't receive the code? 
+                <a class="text-[var(--brand-green)] font-semibold hover:underline ml-1" href="#">Resend Code</a>
+</p>
+</div>
+</div>
+<a class="mt-8 flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--brand-green)] transition-colors text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+        Back to Sign Up
+    </a>
+<footer class="mt-auto pt-10 text-center">
+<p class="text-[var(--text-muted)] text-xs opacity-60">
+            © 2024 Nature's Glow Community. All rights reserved.
+        </p>
+</footer>
+  <script>
+    const verifyBtn = document.getElementById('verify-btn');
+const inputs = document.querySelectorAll('.otp-input');
+
+verifyBtn.addEventListener('click', () => {
+    // 1. Isku gee 6-da nambar ee sanduuyada ku jira
+    let enteredCode = "";
+    inputs.forEach(input => enteredCode += input.value);
+
+    // 2. Soo qaado koodhkii dhabta ahaa ee SessionStorage ku jiray
+    const actualOTP = sessionStorage.getItem('generatedOTP');
+
+    if (enteredCode === actualOTP) {
+        // HADDII AY ISLE'EGYIHIIN: Halkan xogta ugu dir Firebase
+        console.log("Koodhku waa sax! Hadda qofka is-diiwaangeli.");
+        // createUserWithEmailAndPassword(...)
+    } else {
+        alert("Koodhka aad galisay waa khaldan yahay!");
+    }
+});
+
+  </script>
+
+</body></html>
