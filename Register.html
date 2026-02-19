@@ -152,9 +152,10 @@
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="text/javascript">
   (function() {
-    // Public Key-gaaga rasmiga ah
+    // Furahaaga rasmiga ah (Public Key)
     emailjs.init("wm5gF1fpGmTPyCjqP"); 
   })();
 </script>
@@ -183,51 +184,47 @@
             const password = document.getElementById('password').value;
             const confirmPass = document.getElementById('confirm-password').value;
 
-            // Hubi Password-ka
+            // 1. Hubi Password-ka
             if (password !== confirmPass) {
                 alert("⚠️ Password-yadu isma laha!");
                 return;
             }
 
-            // Bilow Loader-ka
+            // 2. Bilow Loader-ka
             if (loader) {
                 loader.classList.remove('hidden');
                 if (loaderText) loaderText.innerText = "Koodhkii xaqiijinta ayaa loo dirayaa email-kaaga...";
             }
 
-            // Dhal OTP
+            // 3. Dhal OTP (6 nambar ah)
             const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-            // Kaydi xogta si kumeel gaar ah
+            // 4. Kaydi xogta si kumeel gaar ah
             sessionStorage.setItem('generatedOTP', otpCode);
             sessionStorage.setItem('pendingEmail', email);
             sessionStorage.setItem('pendingPassword', password);
 
+            // 5. U diyaar garow dirista Email-ka
             const templateParams = {
                 email: email,       
                 passcode: otpCode   
             };
 
-// U dir Email-ka adigoo isticmaalaya EmailJS
-const templateParams = {
-    email: email,       
-    passcode: otpCode   
-};
-
-// KA BEDDEL: Template ID-ga halkan ku qoran (template_j0rxugs)
-emailjs.send('service_91mb9t5', 'template_j0rxugs', templateParams)
-    .then(function() {
-        if (loaderText) loaderText.innerText = "Guul! Koodhkii waa la diray...";
-        setTimeout(() => {
-            window.location.href = "Ver.html"; 
-        }, 1200); 
-    })
-    .catch(function(error) {
-        if (loader) loader.classList.add('hidden'); 
-        alert("Cillad: " + JSON.stringify(error));
-        console.error("EmailJS Error details:", error);
-    });
-
+            // 6. Dir Email-ka adigoo isticmaalaya ID-yada saxda ah
+            emailjs.send('service_91mb9t5', 'template_j0rxugs', templateParams)
+                .then(function() {
+                    if (loaderText) loaderText.innerText = "Guul! Koodhkii waa la diray...";
+                    setTimeout(() => {
+                        window.location.href = "Ver.html"; 
+                    }, 1200); 
+                })
+                .catch(function(error) {
+                    if (loader) loader.classList.add('hidden'); 
+                    alert("Cillad: " + JSON.stringify(error));
+                    console.error("EmailJS Error details:", error);
+                });
+        }); // Xidhitaanka EventListener - SAX AH
+    } // Xidhitaanka If Statement - SAX AH
 </script>
 
 </body>
