@@ -345,16 +345,40 @@
 </footer>
         
 <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-[90] hidden transition-opacity"></div>
-<script>
-    // 1. SELECT ELEMENTS
+<script type="module">
+    // 1. FIREBASE IMPORTS & CONFIG
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    // Hubi in halkan ay ku jirto Config-gaaga saxda ah
+    const firebaseConfig = {
+        apiKey: "AIzaSyCk4S0S7dvZrTN6q4oISLIWIXZNtHXRrvk",
+        authDomain: "my-websade.firebaseapp.com",
+        projectId: "my-websade",
+        appId: "1:34681878474:web:5d11bb422bf74008cdc133"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // 2. SELECT ELEMENTS
     const openMenuBtn = document.getElementById('open-menu');
     const closeMenuBtn = document.getElementById('close-menu');
     const sideMenu = document.getElementById('side-menu');
     const overlay = document.getElementById('sidebar-overlay');
     const searchBar = document.getElementById('product-search');
     const products = document.querySelectorAll('.product-card');
+    const logoutLink = document.getElementById('logout-link');
 
-    // 2. SIDEBAR FUNCTIONS
+    // 3. PROTECTION: Hubi haddii qofku Login yahay
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            // Haddii uu san jirin, u tuur bogga index.html
+            window.location.href = "index.html";
+        }
+    });
+
+    // 4. SIDEBAR FUNCTIONS
     const openSidebar = () => {
         sideMenu.classList.remove('-translate-x-full');
         overlay.classList.remove('hidden');
@@ -365,23 +389,37 @@
         overlay.classList.add('hidden');
     };
 
-    // 3. EVENT LISTENERS
     openMenuBtn.addEventListener('click', openSidebar);
     closeMenuBtn.addEventListener('click', closeSidebar);
     overlay.addEventListener('click', closeSidebar);
 
-    // 4. SEARCH FUNCTIONALITY
+    // 5. SEARCH FUNCTIONALITY
     searchBar.addEventListener('input', (e) => {
         const term = e.target.value.toLowerCase();
         products.forEach(product => {
             const title = product.querySelector('h3').innerText.toLowerCase();
-            if(title.includes(term)) {
-                product.style.display = 'flex';
-            } else {
-                product.style.display = 'none';
-            }
+            product.style.display = title.includes(term) ? 'flex' : 'none';
         });
     });
+
+    // 6. LOGOUT FUNCTION (The "Bulletproof" Version)
+    if(logoutLink) {
+        logoutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            signOut(auth).then(() => {
+                // Tirtir dhammaan xogta browser-ka
+                sessionStorage.clear(); 
+                localStorage.clear(); 
+                
+                // U weeci bogga index.html sidaad dalbatay
+                window.location.href = "index.html";
+            }).catch((error) => {
+                console.error("Logout Error:", error);
+                alert("Cillad: Lagama bixi karo dukaanka hadda.");
+            });
+        });
+    }
 </script>
         
 </body></html>
