@@ -113,6 +113,15 @@ body { font-family: 'Manrope', sans-serif; }
     <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-primary"></div>
 </div>
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<script type="text/javascript">
+  (function() {
+    // 2. HALKAN GELI "PUBLIC KEY"-GAAGA aad ka soo qaaday EmailJS Account-kaaga
+    emailjs.init("YOUR_PUBLIC_KEY_HERE"); 
+  })();
+</script>
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -135,25 +144,37 @@ body { font-family: 'Manrope', sans-serif; }
         loader.classList.remove('hidden');
 
         try {
+            // Hubi haddii uu jiro Email-ku
             const methods = await fetchSignInMethodsForEmail(auth, email);
-            if (methods.length === 0) throw new Error("Email-kan ma diwaangashna!");
+            
+            // FIIRO GAAR AH: Firebase cusub mararka qaado waxay soo celisaa array maran 
+            // xataa haddii emailku jiro, hubi Settings-ka Firebase Auth (Email Enumeration Protection)
+            if (methods.length === 0) {
+                throw new Error("Email-kan ma diwaangashna!");
+            }
 
             const otpCode = Math.floor(10000 + Math.random() * 90000).toString();
             sessionStorage.setItem('resetEmail', email);
             sessionStorage.setItem('generatedOTP', otpCode);
 
+            // Dirista Email-ka
             await emailjs.send('service_9inb9t3', 'template_j0rxugs', {
                 email: email,
-                passcode: otpCode // 5-ta xaraf halkan ayay ka baxayaan
+                passcode: otpCode 
             });
 
+            console.log("OTP Sent:", otpCode); // Tani waxay kaa caawineysaa tijaabada
             window.location.href = "verify_code.html";
+            
         } catch (error) {
             loader.classList.add('hidden');
+            // Haddii qaladku yahay dhanka EmailJS ama Firebase
             alert("⚠️ Qalad: " + error.message);
+            console.error(error);
         }
     });
 </script>
+
 
 </body>
 </html>
