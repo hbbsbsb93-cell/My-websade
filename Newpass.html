@@ -177,26 +177,22 @@ resetForm.addEventListener("submit", async (e) => {
 
   loader.classList.remove("hidden");
 
-  try {
-    // FIIRO: Maadaama aad isticmaashay 5-digit OTP bogagii hore, 
-    // halkan waxaad u baahan tahay inaad "Update" ku samayso macmiilka hadda jooga.
-    
-    // Haddii aad u isticmaalayso Firebase habka rasmiga ah:
-    // await updatePassword(auth.currentUser, newPass);
+try {
+    const user = auth.currentUser; // Wuxuu helayaa qofka hadda xaqiijinta soo maray
 
-    // Haddii aan nahay dad iska kaashanaya dhismaha:
-    setTimeout(() => {
+    if (user) {
+        // Halkan ayaa password-ka rasmiga ah lagu baddalayaa
+        await updatePassword(user, newPass); 
+        
         loader.classList.add("hidden");
         alert("✅ Hambalyo! Password-kaaga si guul leh ayaa loo beddelay.");
-        sessionStorage.clear(); // Tirtir koodhkii 5-ta ahaa
-        window.location.href = "login.html"; // Dib ugu celi Login-ka
-    }, 1500);
-
-  } catch (error) {
-    loader.classList.add("hidden");
-    alert("⚠️ Khalad ayaa dhacay: " + error.message);
-  }
-});
+        sessionStorage.clear(); 
+        window.location.href = "login.html";
+    } else {
+        // Haddii uu qofku aad u raagay oo uu session-ku ka dhacay
+        throw new Error("Fadhigii wuu dhacay. Fadlan dib u bilow nidaamka xaqiijinta.");
+    }
+}
 </script>
 
 </body>
