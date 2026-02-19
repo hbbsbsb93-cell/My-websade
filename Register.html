@@ -208,21 +208,26 @@
                 passcode: otpCode   
             };
 
-            // U dir Email-ka
-            emailjs.send('service_91mb9t5', 'template_6v249vp', templateParams)
-                .then(function() {
-                    if (loaderText) loaderText.innerText = "Guul! Koodhkii waa la diray...";
-                    setTimeout(() => {
-                        window.location.href = "Ver.html"; 
-                    }, 1200); 
-                })
-                .catch(function(error) {
-                    if (loader) loader.classList.add('hidden'); 
-                    alert("Cillad: Koodhkii lama diri karo. Hubi internet-kaaga.");
-                    console.error("EmailJS Error:", error);
-                });
-        }); // Halkan baa xidhidhka form-ka ahaa
-    } 
+// U dir Email-ka adigoo isticmaalaya EmailJS
+const templateParams = {
+    email: email,       
+    passcode: otpCode   
+};
+
+// KA BEDDEL: Template ID-ga halkan ku qoran (template_j0rxugs)
+emailjs.send('service_91mb9t5', 'template_j0rxugs', templateParams)
+    .then(function() {
+        if (loaderText) loaderText.innerText = "Guul! Koodhkii waa la diray...";
+        setTimeout(() => {
+            window.location.href = "Ver.html"; 
+        }, 1200); 
+    })
+    .catch(function(error) {
+        if (loader) loader.classList.add('hidden'); 
+        alert("Cillad: " + JSON.stringify(error));
+        console.error("EmailJS Error details:", error);
+    });
+
 </script>
 
 </body>
