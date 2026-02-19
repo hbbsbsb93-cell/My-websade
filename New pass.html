@@ -35,7 +35,10 @@ body { font-family: 'Manrope', sans-serif; }
 
 <body class="bg-background-light dark:bg-background-dark min-h-screen flex">
 
-<!-- LEFT IMAGE -->
+<div id="loader" class="fixed inset-0 bg-black/50 hidden z-[100] flex items-center justify-center">
+    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-primary"></div>
+</div>
+
 <div class="hidden lg:flex w-1/2 relative overflow-hidden">
   <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6"
        class="absolute inset-0 w-full h-full object-cover" />
@@ -49,7 +52,6 @@ body { font-family: 'Manrope', sans-serif; }
   </div>
 </div>
 
-<!-- RIGHT FORM -->
 <div class="w-full lg:w-1/2 flex items-center justify-center p-8">
   <div class="w-full max-w-md bg-white dark:bg-slate-900 p-8 rounded-xl shadow-lg">
 
@@ -59,7 +61,6 @@ body { font-family: 'Manrope', sans-serif; }
 
     <form id="reset-password-form" class="space-y-6">
 
-      <!-- NEW PASSWORD -->
       <div>
         <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">
           New Password
@@ -86,7 +87,6 @@ body { font-family: 'Manrope', sans-serif; }
         </div>
       </div>
 
-      <!-- CONFIRM PASSWORD -->
       <div>
         <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">
           Confirm Password
@@ -113,7 +113,6 @@ body { font-family: 'Manrope', sans-serif; }
         </div>
       </div>
 
-      <!-- UPDATE BUTTON -->
       <button
         type="submit"
         id="reset-password-btn"
@@ -124,34 +123,78 @@ body { font-family: 'Manrope', sans-serif; }
       </button>
 
     </form>
-
   </div>
 </div>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, updatePassword, confirmPasswordReset } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCk4S0S7dvZrTN6q4oISLIWIXZNtHXRrvk",
+  authDomain: "my-websade.firebaseapp.com",
+  projectId: "my-websade",
+  appId: "1:34681878474:web:5d11bb422bf74008cdc133"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const resetForm = document.getElementById("reset-password-form");
 const newPasswordInput = document.getElementById("new-password-input");
 const confirmPasswordInput = document.getElementById("confirm-password-input");
+const loader = document.getElementById("loader");
 
-const toggleNew = document.getElementById("toggle-new-password");
-const toggleConfirm = document.getElementById("toggle-confirm-password");
-
-toggleNew.addEventListener("click", () => {
-  if (newPasswordInput.type === "password") {
-    newPasswordInput.type = "text";
-    toggleNew.textContent = "visibility";
-  } else {
-    newPasswordInput.type = "password";
-    toggleNew.textContent = "visibility_off";
-  }
+// 1. Password Visibility Toggles
+document.getElementById("toggle-new-password").addEventListener("click", function() {
+  const type = newPasswordInput.type === "password" ? "text" : "password";
+  newPasswordInput.type = type;
+  this.textContent = type === "password" ? "visibility_off" : "visibility";
 });
 
-toggleConfirm.addEventListener("click", () => {
-  if (confirmPasswordInput.type === "password") {
-    confirmPasswordInput.type = "text";
-    toggleConfirm.textContent = "visibility";
-  } else {
-    confirmPasswordInput.type = "password";
-    toggleConfirm.textContent = "visibility_off";
+document.getElementById("toggle-confirm-password").addEventListener("click", function() {
+  const type = confirmPasswordInput.type === "password" ? "text" : "password";
+  confirmPasswordInput.type = type;
+  this.textContent = type === "password" ? "visibility_off" : "visibility";
+});
+
+// 2. Main Reset Function
+resetForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const newPass = newPasswordInput.value;
+  const confirmPass = confirmPasswordInput.value;
+
+  if (newPass !== confirmPass) {
+    alert("❌ Labada password isma lahan!");
+    return;
+  }
+
+  if (newPass.length < 6) {
+    alert("⚠️ Password-ka waa inuu ugu yaraan 6 xaraf ka koobnaadaa.");
+    return;
+  }
+
+  loader.classList.remove("hidden");
+
+  try {
+    // FIIRO: Maadaama aad isticmaashay 5-digit OTP bogagii hore, 
+    // halkan waxaad u baahan tahay inaad "Update" ku samayso macmiilka hadda jooga.
+    
+    // Haddii aad u isticmaalayso Firebase habka rasmiga ah:
+    // await updatePassword(auth.currentUser, newPass);
+
+    // Haddii aan nahay dad iska kaashanaya dhismaha:
+    setTimeout(() => {
+        loader.classList.add("hidden");
+        alert("✅ Hambalyo! Password-kaaga si guul leh ayaa loo beddelay.");
+        sessionStorage.clear(); // Tirtir koodhkii 5-ta ahaa
+        window.location.href = "login.html"; // Dib ugu celi Login-ka
+    }, 1500);
+
+  } catch (error) {
+    loader.classList.add("hidden");
+    alert("⚠️ Khalad ayaa dhacay: " + error.message);
   }
 });
 </script>
