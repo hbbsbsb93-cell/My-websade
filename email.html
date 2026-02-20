@@ -63,14 +63,13 @@ body { font-family: 'Manrope', sans-serif; }
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script type="text/javascript">
   (function() {
-    // GELI PUBLIC KEY-GAAGA EMAILJS
     emailjs.init("YOUR_PUBLIC_KEY_HERE"); 
   })();
 </script>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyCk4S0S7dvZrTN6q4oISLIWIXZNtHXRrvk",
@@ -82,8 +81,6 @@ body { font-family: 'Manrope', sans-serif; }
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
     document.getElementById('email-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const loader = document.getElementById('loader');
@@ -91,14 +88,11 @@ body { font-family: 'Manrope', sans-serif; }
         loader.classList.remove('hidden');
 
         try {
-            // Waxaan isku dayaynaa inaan login ku sameyno password khaldan
-            // Si aan u ogaano in Email-ku jiro iyo in kale
             await signInWithEmailAndPassword(auth, email, "checking_only_12345");
-            
         } catch (error) {
-            // Haddii qaladku yahay 'wrong-password', waxay ka dhigan tahay Email-ku waa jiro!
+            console.log("Firebase Code:", error.code);
+            // Haddii email-ku jiro, password-ku waa inuu khaldanaadaa
             if (error.code === 'auth/wrong-password' || error.code === 'auth/too-many-requests') {
-                
                 const otpCode = Math.floor(10000 + Math.random() * 90000).toString();
                 sessionStorage.setItem('resetEmail', email);
                 sessionStorage.setItem('generatedOTP', otpCode);
@@ -110,8 +104,7 @@ body { font-family: 'Manrope', sans-serif; }
 
                 window.location.href = "intetcode.html";
             } 
-            // Haddii qaladku yahay 'user-not-found', email-ku ma diwaangashna
-            else if (error.code === 'auth/user-not-found') {
+            else if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
                 alert("⚠️ Email-kan kuma jiro liiska diwaangashan!");
             } 
             else {
@@ -121,6 +114,7 @@ body { font-family: 'Manrope', sans-serif; }
             loader.classList.add('hidden');
         }
     });
+</script>
 
 </body>
 </html>
