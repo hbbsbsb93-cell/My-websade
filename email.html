@@ -63,23 +63,12 @@ body { font-family: 'Manrope', sans-serif; }
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script type="text/javascript">
   (function() {
+    // Public Key-gaaga EmailJS
     emailjs.init("wm5gF1fpGmTPyCjqP"); 
   })();
 </script>
 
 <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    const firebaseConfig = {
-        apiKey: "AIzaSyCk4S0S7dvZrTN6q4oISLIWIXZNtHXRrvk",
-        authDomain: "my-websade.firebaseapp.com",
-        projectId: "my-websade",
-        appId: "1:34681878474:web:5d11bb422bf74008cdc133"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
     document.getElementById('email-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const loader = document.getElementById('loader');
@@ -87,33 +76,28 @@ body { font-family: 'Manrope', sans-serif; }
         loader.classList.remove('hidden');
 
         try {
-            await signInWithEmailAndPassword(auth, email, "checking_only_12345");
+            // TALLAABADA 1: Abuur OTP 5 xaraf ah (oo toos u dir)
+            const otpCode = Math.floor(10000 + Math.random() * 90000).toString();
+            
+            // Kaydi macluumaadka si bogga xiga loogu isticmaalo
+            sessionStorage.setItem('resetEmail', email);
+            sessionStorage.setItem('generatedOTP', otpCode);
+
+            // TALLAABADA 2: Toos ugu dir EmailJS (Cidna ha weydiin)
+            await emailjs.send('service_9inb9t3', 'template_j0rxugs', {
+                email: email,       // Wuxuu aadayaa {{email}} ee template-kaaga
+                passcode: otpCode   // Wuxuu aadayaa {{passcode}}
+            });
+
+            // TALLAABADA 3: U gudbi bogga koodhka lagu hubiyo
+            window.location.href = "intetcode.html";
+            
         } catch (error) {
-            console.log("Firebase Code:", error.code);
-            // Haddii email-ku jiro, password-ku waa inuu khaldanaadaa
-            if (error.code === 'auth/wrong-password' || error.code === 'auth/too-many-requests') {
-                const otpCode = Math.floor(10000 + Math.random() * 90000).toString();
-                sessionStorage.setItem('resetEmail', email);
-                sessionStorage.setItem('generatedOTP', otpCode);
-
-                   await emailjs.send('service_9inb9t3', 'template_j0rxugs', {
-                    email: email,       // Tani waxay la mid tahay {{email}} ee Dashboard-kaaga
-                    passcode: otpCode   // Tani waxay la mid tahay {{passcode}} ee Template-kaaga
-                });
-
-                window.location.href = "intetcode.html";
-            } 
-            else if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
-                alert("⚠️ Email-kan kuma jiro liiska diwaangashan!");
-            } 
-            else {
-                alert("❌ Qalad: " + (error.code || "Cilad farsamo"));
-            }
-        } finally {
             loader.classList.add('hidden');
+            alert("❌ Cilad dhanka dirista ah: " + (error.text || error.message || "Isku day mar kale"));
+            console.error("EmailJS Error:", error);
         }
     });
 </script>
-
 </body>
 </html>
