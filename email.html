@@ -63,14 +63,13 @@ body { font-family: 'Manrope', sans-serif; }
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script type="text/javascript">
   (function() {
-    emailjs.init("YOUR_PUBLIC_KEY_HERE"); 
+    emailjs.init("wm5gF1fpGmTPyCjqP"); 
   })();
 </script>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
     const firebaseConfig = {
         apiKey: "AIzaSyCk4S0S7dvZrTN6q4oISLIWIXZNtHXRrvk",
         authDomain: "my-websade.firebaseapp.com",
@@ -97,9 +96,9 @@ body { font-family: 'Manrope', sans-serif; }
                 sessionStorage.setItem('resetEmail', email);
                 sessionStorage.setItem('generatedOTP', otpCode);
 
-                await emailjs.send('service_9inb9t3', 'template_j0rxugs', {
-                    email: email,
-                    passcode: otpCode 
+                   await emailjs.send('service_9inb9t3', 'template_j0rxugs', {
+                    email: email,       // Tani waxay la mid tahay {{email}} ee Dashboard-kaaga
+                    passcode: otpCode   // Tani waxay la mid tahay {{passcode}} ee Template-kaaga
                 });
 
                 window.location.href = "intetcode.html";
