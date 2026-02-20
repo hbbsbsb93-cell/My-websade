@@ -26,6 +26,11 @@ body { font-family: 'Manrope', sans-serif; }
   font-size: clamp(18px, 4vw, 24px);
   font-weight: 600;
 }
+/* Haddii koodhku khaldamo */
+.border-error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
+}
 </style>
 </head>
 
@@ -37,11 +42,11 @@ body { font-family: 'Manrope', sans-serif; }
 
   <form id="code-form" class="space-y-6">
     <div class="grid grid-cols-5 gap-3 sm:gap-4">
-      <input type="text" maxlength="1" id="code-1" class="code-input rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required />
-      <input type="text" maxlength="1" id="code-2" class="code-input rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required />
-      <input type="text" maxlength="1" id="code-3" class="code-input rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required />
-      <input type="text" maxlength="1" id="code-4" class="code-input rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required />
-      <input type="text" maxlength="1" id="code-5" class="code-input rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required />
+      <input type="text" inputmode="numeric" maxlength="1" id="code-1" class="code-input rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required />
+      <input type="text" inputmode="numeric" maxlength="1" id="code-2" class="code-input rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required />
+      <input type="text" inputmode="numeric" maxlength="1" id="code-3" class="code-input rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required />
+      <input type="text" inputmode="numeric" maxlength="1" id="code-4" class="code-input rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required />
+      <input type="text" inputmode="numeric" maxlength="1" id="code-5" class="code-input rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required />
     </div>
 
     <button type="submit" id="verify-code-btn" class="w-full bg-primary hover:opacity-90 text-black font-semibold py-3 sm:py-4 rounded-xl transition shadow-lg">
@@ -59,10 +64,19 @@ body { font-family: 'Manrope', sans-serif; }
     const loader = document.getElementById('loader');
     const codeForm = document.getElementById('code-form');
 
-    // 1. Shaqada Gudubka Inputs-ka (Auto-focus)
+    // 1. Hubi in Session-ku jiro (Inaan qofku boggan soo dhex dhicin isagoo soo marin email.html)
+    window.onload = () => {
+        if (!sessionStorage.getItem('generatedOTP')) {
+            alert("⚠️ Session-kaagu wuu dhacay. Fadlan dib u bilow.");
+            window.location.href = "email.html"; 
+        }
+    };
+
+    // 2. Auto-focus Logic: U gudub sanduuqa xiga markaad qorto
     inputs.forEach((input, index) => {
         input.addEventListener("input", (e) => {
-            if (e.inputType === "deleteContentBackward") return; // Haddii la tirtirayo ha gudbin
+            input.classList.remove('border-error');
+            if (e.inputType === "deleteContentBackward") return;
             if (input.value.length === 1 && index < inputs.length - 1) {
                 inputs[index + 1].focus();
             }
@@ -75,35 +89,29 @@ body { font-family: 'Manrope', sans-serif; }
         });
     });
 
-    // 2. Shaqada Hubinta Koodhka (Submit Logic)
+    // 3. Hubinta Koodhka (OTP Verification)
     codeForm.addEventListener('submit', (e) => {
         e.preventDefault();
         loader.classList.remove('hidden');
 
-        try {
-            // Isku dar 5-ta xaraf ee sanduuqyada
-            let enteredOTP = "";
-            inputs.forEach(input => enteredOTP += input.value);
+        let enteredOTP = "";
+        inputs.forEach(input => enteredOTP += input.value);
 
-            // Soo qaado koodhkii email-ka loogu diray ee sessionStorage ku jiray
-            const correctOTP = sessionStorage.getItem('generatedOTP');
+        // Koodhkii email-ka loogu diray ee sessionStorage ku kaydsanaa
+        const correctOTP = sessionStorage.getItem('generatedOTP');
 
-            if (!correctOTP) {
-                throw new Error("Fadhigii wuu dhacay (Session expired). Fadlan dib u codso koodhka.");
-            }
-
+        // Wax yar sug si uu loader-ku u muuqdo
+        setTimeout(() => {
             if (enteredOTP === correctOTP) {
-                // Haddii uu sax yahay, u weeci bogga baddalka password-ka
-                setTimeout(() => {
-                    window.location.href = "Newpass.html";
-                }, 800);
+                // HADDII UU SAX YAHAY: U gudbi bogga Firebase ee Newpass.html
+                window.location.href = "Newpass.html";
             } else {
-                throw new Error("Koodhkaagu waa khalad! Fadlan mar kale iska hubi.");
+                // HADDII UU KHALAD YAHAY
+                loader.classList.add('hidden');
+                inputs.forEach(input => input.classList.add('border-error'));
+                alert("❌ Koodhkaagu waa khalad! Fadlan iska hubi.");
             }
-        } catch (error) {
-            loader.classList.add('hidden');
-            alert("❌ " + error.message);
-        }
+        }, 1200);
     });
 </script>
 
