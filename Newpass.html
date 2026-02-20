@@ -6,9 +6,7 @@
     <title>Xaqiiji Kaydinta | New Password</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .btn-gradient {
-            background: linear-gradient(90deg, #13ec5b 0%, #0fb847 100%);
-        }
+        .btn-gradient { background: linear-gradient(90deg, #13ec5b 0%, #0fb847 100%); }
         .loader {
             border: 3px solid #f3f3f3;
             border-radius: 50%;
@@ -33,7 +31,7 @@
 
         <h2 class="text-white text-2xl font-extrabold text-center mb-2">Tallaabada u dambaysa</h2>
         <p class="text-gray-400 text-center text-sm mb-8 px-4">
-            Si aan password-kaaga u beddelno, waxaan Gmail-kaaga u soo diraynaa link ammaan ah oo Google ka socda.
+            Koodhkii waa la xaqiijiyey. Hadda, Google waxay Gmail-kaaga u soo diraysaa link-ga rasmiga ah si aad password-ka u beddelato.
         </p>
 
         <button id="reset-btn" class="w-full btn-gradient text-black font-bold py-4 rounded-2xl shadow-lg shadow-green-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
@@ -43,9 +41,9 @@
 
         <div id="status-msg" class="mt-6 text-sm text-center hidden"></div>
 
-        <div class="mt-8 pt-6 border-t border-gray-700">
-            <p class="text-gray-500 text-xs text-center">
-                Maadaama aan u diyaarinayno <b>Shaqo Production ah</b>, habkan ayaa ah kan ugu ammaan badan ee Google ay aqbasho.
+        <div class="mt-8 pt-6 border-t border-gray-700 text-center">
+            <p class="text-gray-500 text-xs italic">
+                Amaan: Password-kaaga cusub waxaa toos u kaydinaya Google Firebase.
             </p>
         </div>
     </div>
@@ -54,15 +52,24 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Geli xogtaada Firebase Config-ka ah halkan
+        // Firebase Config-gaadii rasmiga ahayd
         const firebaseConfig = {
-            apiKey: "AIzaSy...", 
+            apiKey: "AIzaSyCk4S0S7dvZrTn6Q4OISL1WZtNHXRrWk",
             authDomain: "my-websade.firebaseapp.com",
-            projectId: "my-websade"
+            projectId: "my-websade",
+            appId: "1:34681878474:web:5d11bb422bf74008dcc133"
         };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+
+        // SECURITY CHECK: Hubi in qofku soo maray OTP Verification
+        const isVerified = sessionStorage.getItem('isVerified');
+        const userEmail = sessionStorage.getItem('resetEmail');
+
+        if (!isVerified || !userEmail) {
+            window.location.href = "email.html";
+        }
 
         const resetBtn = document.getElementById('reset-btn');
         const loader = document.getElementById('loader');
@@ -70,50 +77,33 @@
         const statusMsg = document.getElementById('status-msg');
 
         resetBtn.addEventListener('click', async () => {
-            const email = sessionStorage.getItem('resetEmail');
-
-            if (!email) {
-                alert("Session-ku waa dhacay. Fadlan dib u bilow email-ka.");
-                window.location.href = "email.html";
-                return;
-            }
-
-            // UI Feedback
             resetBtn.disabled = true;
             loader.classList.remove('hidden');
             btnText.innerText = "Waa la dirayaa...";
 
             try {
-                // Tani waa "Waddada 2-aad" oo bilaash ah oo card-ka u baahnayn
-                await sendPasswordResetEmail(auth, email);
+                // Google Password Reset Action
+                await sendPasswordResetEmail(auth, userEmail);
                 
                 statusMsg.innerHTML = `<span class="text-green-400 font-medium">✅ Link-ga waa la soo diray! Hubi Gmail-kaaga.</span>`;
                 statusMsg.classList.remove('hidden');
                 
+                // Nadiifi session-ka markuu dhameeyo
+                sessionStorage.clear();
+
                 setTimeout(() => {
-                    alert("Google waxay kuu soo dirtay email. Riix link-gaas si aad password-ka u beddelato.");
+                    alert("Google waxay kuu soo dirtay email. Fadlan riix link-ga email-ka ku jira si aad password-ka u beddelato.");
                     window.location.href = "login.html";
-                }, 2000);
+                }, 3000);
 
             } catch (error) {
                 resetBtn.disabled = false;
                 loader.classList.add('hidden');
                 btnText.innerText = "U dir Gmail Reset Link";
-                
                 statusMsg.innerHTML = `<span class="text-red-400">❌ Cilad: ${error.message}</span>`;
                 statusMsg.classList.remove('hidden');
             }
         });
-        
-        // 1. Hubi in qofku uu soo maray nidaamka (OTP Verification)
-const isVerified = sessionStorage.getItem('isVerified'); // Tani waa in lagu dhex daro intetcode.html markuu OTP saxo
-const userEmail = sessionStorage.getItem('resetEmail');
-
-if (!isVerified || !userEmail) {
-    // Haddii uusan soo xaqiijin OTP-ga, dib ugu celi bilowga
-    window.location.href = "email.html";
-}
-
     </script>
 </body>
 </html>
