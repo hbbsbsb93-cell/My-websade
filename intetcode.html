@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="so">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enter Code | Verify</title>
+<title>Xaqiiji Koodhka | Verify OTP</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
 <script>
 tailwind.config = {
@@ -26,7 +26,6 @@ body { font-family: 'Manrope', sans-serif; }
   font-size: clamp(18px, 4vw, 24px);
   font-weight: 600;
 }
-/* Haddii koodhku khaldamo */
 .border-error {
   border-color: #ef4444 !important;
   box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
@@ -37,8 +36,10 @@ body { font-family: 'Manrope', sans-serif; }
 <body class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
 
 <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-  <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Enter Code</h1>
-  <p class="text-gray-500 mb-6 text-sm sm:text-base">Please enter the 5-digit code sent to your email.</p>
+  <div class="mb-6">
+    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Geli Koodhka</h1>
+    <p class="text-gray-500 text-sm sm:text-base">Fadlan qor 5-ta nambar ee aan Gmail-kaaga u soo dirnay.</p>
+  </div>
 
   <form id="code-form" class="space-y-6">
     <div class="grid grid-cols-5 gap-3 sm:gap-4">
@@ -50,7 +51,7 @@ body { font-family: 'Manrope', sans-serif; }
     </div>
 
     <button type="submit" id="verify-code-btn" class="w-full bg-primary hover:opacity-90 text-black font-semibold py-3 sm:py-4 rounded-xl transition shadow-lg">
-      Verify Code
+      Xaqiiji Koodhka
     </button>
   </form>
 </div>
@@ -64,7 +65,7 @@ body { font-family: 'Manrope', sans-serif; }
     const loader = document.getElementById('loader');
     const codeForm = document.getElementById('code-form');
 
-    // 1. Hubi in Session-ku jiro (Inaan qofku boggan soo dhex dhicin isagoo soo marin email.html)
+    // Hubi inuu qofku email.html soo maray
     window.onload = () => {
         if (!sessionStorage.getItem('generatedOTP')) {
             alert("⚠️ Session-kaagu wuu dhacay. Fadlan dib u bilow.");
@@ -72,7 +73,7 @@ body { font-family: 'Manrope', sans-serif; }
         }
     };
 
-    // 2. Auto-focus Logic: U gudub sanduuqa xiga markaad qorto
+    // Auto-focus Logic
     inputs.forEach((input, index) => {
         input.addEventListener("input", (e) => {
             input.classList.remove('border-error');
@@ -89,7 +90,7 @@ body { font-family: 'Manrope', sans-serif; }
         });
     });
 
-    // 3. Hubinta Koodhka (OTP Verification)
+    // Hubinta Koodhka
     codeForm.addEventListener('submit', (e) => {
         e.preventDefault();
         loader.classList.remove('hidden');
@@ -97,16 +98,16 @@ body { font-family: 'Manrope', sans-serif; }
         let enteredOTP = "";
         inputs.forEach(input => enteredOTP += input.value);
 
-        // Koodhkii email-ka loogu diray ee sessionStorage ku kaydsanaa
         const correctOTP = sessionStorage.getItem('generatedOTP');
 
-        // Wax yar sug si uu loader-ku u muuqdo
         setTimeout(() => {
             if (enteredOTP === correctOTP) {
-                // HADDII UU SAX YAHAY: U gudbi bogga Firebase ee Newpass.html
+                // --- MUHIIM: FURAHII SECURITY-GA ---
+                sessionStorage.setItem('isVerified', 'true'); 
+                
+                // U gudbi bogga u dambeeya
                 window.location.href = "Newpass.html";
             } else {
-                // HADDII UU KHALAD YAHAY
                 loader.classList.add('hidden');
                 inputs.forEach(input => input.classList.add('border-error'));
                 alert("❌ Koodhkaagu waa khalad! Fadlan iska hubi.");
