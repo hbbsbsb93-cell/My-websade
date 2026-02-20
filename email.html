@@ -64,11 +64,11 @@ body { font-family: 'Manrope', sans-serif; }
     </div>
 </div>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="text/javascript">
   (function() {
-    // FIIRO GAAR AH: Public Key-ga halkan hal jeer ayaa lagu qoraa
-    emailjs.init("wm5gF1fpGmTPyCjqP"); 
+    // PUBLIC KEY-GAAGA SAXDA AH
+    emailjs.init("IN3zER21TXypQH8rt"); 
   })();
 </script>
 
@@ -80,15 +80,15 @@ body { font-family: 'Manrope', sans-serif; }
         loader.classList.remove('hidden');
 
         try {
-            // 1. Abuur 5 lambar oo OTP ah
+            // 1. Abuur 5 lambar oo OTP ah (99999 ayaa ugu sareysa)
             const otpCode = Math.floor(10000 + Math.random() * 90000).toString();
             
-            // 2. Kaydi macluumaadka si intetcode.html loogu isticmaalo
+            // 2. Kaydi macluumaadka si loo isticmaalo bogga xaqiijinta
             sessionStorage.setItem('resetEmail', email);
             sessionStorage.setItem('generatedOTP', otpCode);
 
-            // 3. Dir Email-ka (Hubi in Service ID-gaagu yahay service_91m89t5)
-            await emailjs.send('service_3c4c8eg', 'template_jorxugs', {
+            // 3. Dir Email-ka adigoo isticmaalaya ID-yada sawirradaada
+            await emailjs.send('service_twqprpi', 'template_dlpkvxw', {
                 email: email,       
                 passcode: otpCode   
             });
@@ -98,8 +98,7 @@ body { font-family: 'Manrope', sans-serif; }
             
         } catch (error) {
             loader.classList.add('hidden');
-            // Fariin cad oo ku saabsan ciladda Dashboard-ka
-            alert("❌ Cilad dhanka dirista ah: Ma xaqiijin karno adeegga. Hubi Service ID-ga (service_91m89t5).");
+            alert("❌ Cilad dhanka dirista ah: Fadlan hubi xiriirka internet-ka ama Service ID-ga.");
             console.error("EmailJS Error details:", error);
         }
     });
