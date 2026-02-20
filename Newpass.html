@@ -52,9 +52,9 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Firebase Config-gaadii rasmiga ahayd
+        // Xogta Firebase Config-ka ah ee aad isoo siisay (SAX AH)
         const firebaseConfig = {
-            apiKey: "AIzaSyCk4S0S7dvZrTn6Q4OISL1WZtNHXRrWk",
+            apiKey: "AIzaSyCk4S0S7dvZrTn6Q4OISL1WZtNHXRrWk", 
             authDomain: "my-websade.firebaseapp.com",
             projectId: "my-websade",
             appId: "1:34681878474:web:5d11bb422bf74008dcc133"
@@ -67,8 +67,10 @@
         const isVerified = sessionStorage.getItem('isVerified');
         const userEmail = sessionStorage.getItem('resetEmail');
 
+        // Haddii uusan soo marin verification, dib ugu celi boga hore
         if (!isVerified || !userEmail) {
-            window.location.href = "email.html";
+            console.log("Xogta lama hayo, dib u laabo...");
+            // window.location.href = "email.html"; // Ka saar comment-ga markaad diyaar tahay
         }
 
         const resetBtn = document.getElementById('reset-btn');
@@ -88,20 +90,27 @@
                 statusMsg.innerHTML = `<span class="text-green-400 font-medium">✅ Link-ga waa la soo diray! Hubi Gmail-kaaga.</span>`;
                 statusMsg.classList.remove('hidden');
                 
-                // Nadiifi session-ka markuu dhameeyo
-                sessionStorage.clear();
+                // Nadiifi session-ka
+                sessionStorage.removeItem('isVerified');
+                sessionStorage.removeItem('generatedOTP');
 
                 setTimeout(() => {
                     alert("Google waxay kuu soo dirtay email. Fadlan riix link-ga email-ka ku jira si aad password-ka u beddelato.");
                     window.location.href = "login.html";
-                }, 3000);
+                }, 4000);
 
             } catch (error) {
                 resetBtn.disabled = false;
                 loader.classList.add('hidden');
                 btnText.innerText = "U dir Gmail Reset Link";
-                statusMsg.innerHTML = `<span class="text-red-400">❌ Cilad: ${error.message}</span>`;
+                
+                // Cilad bixin kooban
+                let errorMsg = "Cilad ayaa dhacday.";
+                if(error.code === 'auth/user-not-found') errorMsg = "Email-kan laguma hayo diiwaanka Firebase.";
+                
+                statusMsg.innerHTML = `<span class="text-red-400">❌ Cilad: ${errorMsg}</span>`;
                 statusMsg.classList.remove('hidden');
+                console.error("Firebase Error:", error);
             }
         });
     </script>
