@@ -52,26 +52,22 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Xogta Firebase Config-ka ah ee aad isoo siisay (SAX AH)
+        // Xogta rasmiga ah ee ugu dambaysay (Cusboonaysiin)
         const firebaseConfig = {
-            apiKey: "AIzaSyCk4S0S7dvZrTn6Q4OISL1WZtNHXRrWk", 
+            apiKey: "AIzaSyCk4S0S7dvZrTN6q4oISLIWIXZNtHXRrvk",
             authDomain: "my-websade.firebaseapp.com",
             projectId: "my-websade",
-            appId: "1:34681878474:web:5d11bb422bf74008dcc133"
+            storageBucket: "my-websade.firebasestorage.app",
+            messagingSenderId: "34681878474",
+            appId: "1:34681878474:web:5d11bb422bf74008cdc133",
+            measurementId: "G-YC8EBM6VPD"
         };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // SECURITY CHECK: Hubi in qofku soo maray OTP Verification
-        const isVerified = sessionStorage.getItem('isVerified');
+        // SECURITY CHECK: Hubi xogta Session-ka
         const userEmail = sessionStorage.getItem('resetEmail');
-
-        // Haddii uusan soo marin verification, dib ugu celi boga hore
-        if (!isVerified || !userEmail) {
-            console.log("Xogta lama hayo, dib u laabo...");
-            // window.location.href = "email.html"; // Ka saar comment-ga markaad diyaar tahay
-        }
 
         const resetBtn = document.getElementById('reset-btn');
         const loader = document.getElementById('loader');
@@ -79,23 +75,28 @@
         const statusMsg = document.getElementById('status-msg');
 
         resetBtn.addEventListener('click', async () => {
+            if (!userEmail) {
+                alert("Email-ka lama helin. Fadlan dib ugu noqo bogga hore.");
+                window.location.href = "email.html";
+                return;
+            }
+
             resetBtn.disabled = true;
             loader.classList.remove('hidden');
             btnText.innerText = "Waa la dirayaa...";
 
             try {
-                // Google Password Reset Action
+                // Toos u dir password reset email
                 await sendPasswordResetEmail(auth, userEmail);
                 
-                statusMsg.innerHTML = `<span class="text-green-400 font-medium">✅ Link-ga waa la soo diray! Hubi Gmail-kaaga.</span>`;
+                statusMsg.innerHTML = `<span class="text-green-400 font-medium">✅ Link-ga waa la soo diray! Hubi Gmail-kaaga (${userEmail}).</span>`;
                 statusMsg.classList.remove('hidden');
                 
-                // Nadiifi session-ka
-                sessionStorage.removeItem('isVerified');
-                sessionStorage.removeItem('generatedOTP');
+                // Nadiifi xogta si amniga loo sugo
+                sessionStorage.clear();
 
                 setTimeout(() => {
-                    alert("Google waxay kuu soo dirtay email. Fadlan riix link-ga email-ka ku jira si aad password-ka u beddelato.");
+                    alert("Google waxay kuu soo dirtay email. Fadlan riix link-ga email-ka ku jira.");
                     window.location.href = "login.html";
                 }, 4000);
 
@@ -104,13 +105,14 @@
                 loader.classList.add('hidden');
                 btnText.innerText = "U dir Gmail Reset Link";
                 
-                // Cilad bixin kooban
-                let errorMsg = "Cilad ayaa dhacday.";
-                if(error.code === 'auth/user-not-found') errorMsg = "Email-kan laguma hayo diiwaanka Firebase.";
+                let errorMsg = "Cilad: " + error.message;
+                if (error.code === 'auth/user-not-found') {
+                    errorMsg = "Email-kan laguma hayo diiwaanka Google Firebase.";
+                }
                 
-                statusMsg.innerHTML = `<span class="text-red-400">❌ Cilad: ${errorMsg}</span>`;
+                statusMsg.innerHTML = `<span class="text-red-400">${errorMsg}</span>`;
                 statusMsg.classList.remove('hidden');
-                console.error("Firebase Error:", error);
+                console.error("Firebase Reset Error:", error);
             }
         });
     </script>
