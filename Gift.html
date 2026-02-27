@@ -8,7 +8,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            emailjs.init("wm5gF1fpGmTpyCjqP");
+            // Public Key-gaaga
+            emailjs.init("IN3zER21TXypQH8rt");
         })();
     </script>
 
@@ -26,6 +27,21 @@
             overflow: hidden;
         }
 
+        /* Qalbiyo sabaynaya */
+        .hearts-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .heart-particle {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 20px;
+            animation: float 6s infinite linear;
+        }
+
         /* Glassmorphism Card */
         .card {
             background: rgba(255, 255, 255, 0.2);
@@ -34,14 +50,20 @@
             border-radius: 30px;
             padding: 40px;
             width: 90%;
-            max-width: 380px;
+            max-width: 400px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            z-index: 1;
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
         }
 
-        h1 { color: white; font-size: 24px; margin-bottom: 20px; }
+        h1 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
 
         textarea {
             width: 100%;
@@ -51,8 +73,10 @@
             background: rgba(255, 255, 255, 0.9);
             color: #ff4d6d;
             font-size: 16px;
-            outline: none;
+            font-family: 'Poppins', sans-serif;
+            resize: none;
             box-sizing: border-box;
+            outline: none;
             margin-bottom: 20px;
         }
 
@@ -60,93 +84,116 @@
             background: #fff;
             color: #ff4d6d;
             border: none;
-            padding: 12px 35px;
+            padding: 12px 30px;
             border-radius: 50px;
             font-weight: 700;
             cursor: pointer;
+            transition: 0.3s;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        /* --- CUSTOM ALERT BOX (QAYBTA CUSUB) --- */
+        button:hover { transform: scale(1.05); background: #ff4d6d; color: white; }
+
+        /* Custom Alert Style */
         #custom-alert {
             position: fixed;
-            top: -100px; /* Marka hore wuu qarsoon yahay */
+            top: -100px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95);
+            background: white;
             color: #ff4d6d;
-            padding: 15px 30px;
+            padding: 15px 25px;
             border-radius: 50px;
             font-weight: bold;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             z-index: 1000;
-            transition: top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 2px solid #ff4d6d;
+            transition: 0.5s ease;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        #custom-alert.show { top: 30px; } /* Marka uu soo baxayo */
+        #custom-alert.show { top: 20px; }
 
+        @keyframes float {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-    <div id="custom-alert">
-        <span>⚠️</span> <span id="alert-text">Fadlan hadal macaan qor!</span>
-    </div>
+    <div id="custom-alert">⚠️ <span id="alert-msg"></span></div>
+
+    <div class="hearts-bg" id="hearts-container"></div>
 
     <div class="card" id="main-card">
         <h1>Hadal ii Hadiyee ❤️</h1>
-        <textarea id="message" rows="4" placeholder="Halkan ku qor hadal macaan..."></textarea>
-        <button id="submitBtn" onclick="sendEmail()">Hadiyee 🎁</button>
+        <textarea id="hadal" rows="4" placeholder="Halkan ku qor hadal macaan..."></textarea>
+        <button id="sendBtn" onclick="hadiyee()">Hadiyee 🎁</button>
     </div>
 
     <script>
-        // Shaqada Alert-ka Quruxda badan
-        function showAlert(msg) {
+        // Custom Alert function
+        function myAlert(text) {
             const alertBox = document.getElementById('custom-alert');
-            const alertText = document.getElementById('alert-text');
-            alertText.innerText = msg;
+            document.getElementById('alert-msg').innerText = text;
             alertBox.classList.add('show');
-            
-            setTimeout(() => {
-                alertBox.classList.remove('show');
-            }, 3000);
+            setTimeout(() => { alertBox.classList.remove('show'); }, 3000);
         }
 
-        function sendEmail() {
-            const btn = document.getElementById('submitBtn');
-            const msgInput = document.getElementById('message');
+        // Qalbiyada
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            container.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 500);
+
+        // Shaqada dirista
+        function hadiyee() {
+            const hadal = document.getElementById('hadal').value;
+            const btn = document.getElementById('sendBtn');
             const card = document.getElementById('main-card');
 
-            if (msgInput.value.trim() === "") {
-                showAlert("Fadlan hadal macaan qor! 😊"); // Alert-kii quruxda badnaa
+            if (hadal.trim() === "") {
+                myAlert("Fadlan hadal macaan qor! 😊");
                 return;
             }
 
             btn.innerText = "Waa la dirayaa...";
             btn.disabled = true;
 
-            const params = {
-                message: msgInput.value
-            };
-
-            emailjs.send("service_8fbtizf", "template_7e01y3c", params)
-                .then(() => {
-                    card.innerHTML = `
-                        <div style="animation: pop 0.5s ease;">
-                            <h1 style="font-size: 50px;">🎁</h1>
-                            <h2 style="color: white;">Waa la guddoomay!</h2>
-                            <p style="color: white;">Hadalkaagu hadda ayuu ii soo dhacay. ❤️</p>
-                        </div>
-                    `;
-                }, (error) => {
-                    showAlert("Cilad ayaa dhacday sxb! ❌");
-                    btn.innerText = "Hadiyee 🎁";
-                    btn.disabled = false;
-                });
+            // EmailJS send
+            // FIIRO GAAR AH: Gali SERVICE_ID-gaaga halka ay ku qoran tahay 'YOUR_SERVICE_ID'
+            emailjs.send("service_8fbtizf", "template_1cjv04f", {
+                message: hadal,
+                to_name: "Gacaliye"
+            })
+            .then(() => {
+                card.innerHTML = `
+                    <div style="animation: fadeIn 0.8s ease;">
+                        <h1 style="font-size: 50px;">🎁</h1>
+                        <h2 style="color: white;">Waa la guddoomay!</h2>
+                        <p style="color: white; opacity: 0.9;">Mahadsanid, hadiyaddaadu email-kayga ayay ku soo dhacday. ❤️</p>
+                    </div>
+                `;
+            }, (error) => {
+                myAlert("Cilad ayaa dhacday, isku day mar kale! ❌");
+                btn.innerText = "Hadiyee 🎁";
+                btn.disabled = false;
+                console.log(error);
+            });
         }
     </script>
 </body>
