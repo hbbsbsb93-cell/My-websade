@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hadal ii Hadiyee ❤️</title>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("wm5gF1fpGmTpyCjqP");
+        })();
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff758c 0%, #ff4d6d 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Glassmorphism Card */
+        .card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 40px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        h1 { color: white; font-size: 24px; margin-bottom: 20px; }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: #ff4d6d;
+            font-size: 16px;
+            outline: none;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #fff;
+            color: #ff4d6d;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* --- CUSTOM ALERT BOX (QAYBTA CUSUB) --- */
+        #custom-alert {
+            position: fixed;
+            top: -100px; /* Marka hore wuu qarsoon yahay */
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            color: #ff4d6d;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid #ff4d6d;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #custom-alert.show { top: 30px; } /* Marka uu soo baxayo */
+
+    </style>
+</head>
+<body>
+
+    <div id="custom-alert">
+        <span>⚠️</span> <span id="alert-text">Fadlan hadal macaan qor!</span>
+    </div>
+
+    <div class="card" id="main-card">
+        <h1>Hadal ii Hadiyee ❤️</h1>
+        <textarea id="message" rows="4" placeholder="Halkan ku qor hadal macaan..."></textarea>
+        <button id="submitBtn" onclick="sendEmail()">Hadiyee 🎁</button>
+    </div>
+
+    <script>
+        // Shaqada Alert-ka Quruxda badan
+        function showAlert(msg) {
+            const alertBox = document.getElementById('custom-alert');
+            const alertText = document.getElementById('alert-text');
+            alertText.innerText = msg;
+            alertBox.classList.add('show');
+            
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 3000);
+        }
+
+        function sendEmail() {
+            const btn = document.getElementById('submitBtn');
+            const msgInput = document.getElementById('message');
+            const card = document.getElementById('main-card');
+
+            if (msgInput.value.trim() === "") {
+                showAlert("Fadlan hadal macaan qor! 😊"); // Alert-kii quruxda badnaa
+                return;
+            }
+
+            btn.innerText = "Waa la dirayaa...";
+            btn.disabled = true;
+
+            const params = {
+                message: msgInput.value
+            };
+
+            emailjs.send("service_8fbtizf", "template_7e01y3c", params)
+                .then(() => {
+                    card.innerHTML = `
+                        <div style="animation: pop 0.5s ease;">
+                            <h1 style="font-size: 50px;">🎁</h1>
+                            <h2 style="color: white;">Waa la guddoomay!</h2>
+                            <p style="color: white;">Hadalkaagu hadda ayuu ii soo dhacay. ❤️</p>
+                        </div>
+                    `;
+                }, (error) => {
+                    showAlert("Cilad ayaa dhacday sxb! ❌");
+                    btn.innerText = "Hadiyee 🎁";
+                    btn.disabled = false;
+                });
+        }
+    </script>
+</body>
+</html>
