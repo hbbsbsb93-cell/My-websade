@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaftan Jacayl & Sawir</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            background: #ff758c;
+        }
+
+        /* Background-ka guud ee hore */
+        .main-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff758c 0%, #ff4d6d 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 50px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h1 { color: white; margin-bottom: 30px; text-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        .btn-group { display: flex; gap: 20px; justify-content: center; align-items: center; }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #btn-haa { background: #fff; color: #ff4d6d; z-index: 9999; }
+        #btn-maya { background: rgba(255,255,255,0.3); color: white; }
+
+        /* Full Screen Button */
+        .full-screen {
+            position: fixed !important;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            border-radius: 0; font-size: 4rem; z-index: 10000 !important;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        /* --- BOGGA CUSUB (SUCCESS PAGE) --- */
+        #success-page {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255, 77, 109, 0.7);
+            backdrop-filter: blur(30px); /* Buler qarxaya */
+            -webkit-backdrop-filter: blur(30px);
+            display: none; 
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+            color: white;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .sawir-meel {
+            width: 280px;
+            height: 280px;
+            border-radius: 20px; /* Square leh geesaha la wareejiyay */
+            border: 6px solid white;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            margin-bottom: 25px;
+            object-fit: cover;
+        }
+
+        .success-text { font-size: 2.2rem; font-weight: bold; margin-bottom: 10px; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-bg" id="initial-view">
+        <div class="glass-card">
+            <h1 id="qoraal">Ma i jeceshahay? ❤️</h1>
+            <div class="btn-group">
+                <button id="btn-haa" onclick="showSuccess()">HAA</button>
+                <button id="btn-maya" onclick="stepForward()">MAYA</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="success-page">
+        <img src="https://i.ibb.co/FqkHGK5K/Screenshot-20260227-205434-Tik-Tok.jpg" alt="Sawirka Jacaylka" class="sawir-meel">
+        <div class="success-text">Waan ogaa inaad i jeceshahay! 😍🌹</div>
+        <p>Hadda wax walba waa qurux...</p>
+        <button onclick="location.reload()" style="background: white; color: #ff4d6d; margin-top: 30px; font-size: 16px; padding: 12px 25px;">Dib u bilow</button>
+    </div>
+
+    <script>
+        let step = 1;
+        const btnHaa = document.getElementById('btn-haa');
+        const qoraal = document.getElementById('qoraal');
+
+        function stepForward() {
+            if (step === 1) {
+                qoraal.innerText = "Ma iga heshay? 😊";
+                btnHaa.style.transform = "scale(2.5)";
+                step = 2;
+            } else if (step === 2) {
+                qoraal.innerText = "Kaftankayga ma ka heshay? 😉";
+                btnHaa.style.transform = "scale(5)";
+                step = 3;
+            } else if (step === 3) {
+                btnHaa.classList.add('full-screen');
+                btnHaa.innerText = "HAA! (TAABO)";
+            }
+        }
+
+        function showSuccess() {
+            // Qari wax walba, soo saar bogga buler-ka ah
+            document.getElementById('initial-view').style.display = "none";
+            btnHaa.style.display = "none";
+            document.getElementById('success-page').style.display = "flex";
+        }
+    </script>
+</body>
+</html>
