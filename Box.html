@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Love Envelope</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(180deg, #ff4da6, #ff0066, #ff4da6);
+            overflow: hidden;
+        }
+
+        /* Container-ka 3D-ga */
+        .envelope-wrapper {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: #ff1a75; /* Midabka gadaal ee baqshadda */
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Warqadda (Letter) - Waxay ku jirtaa dhexda */
+        .letter {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            width: 280px;
+            height: 180px;
+            background: white;
+            z-index: 1; /* Warqaddu waa lakabka hoose */
+            transition: transform 0.8s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 24px;
+            color: #ff1a75;
+            text-align: center;
+        }
+
+        /* Qaybta hore ee Baqshadda (Front Pocket) */
+        .envelope-front {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-right: 150px solid #ff4da6;
+            border-bottom: 100px solid #ff4da6;
+            border-left: 150px solid #ff4da6;
+            border-top: 100px solid transparent;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            z-index: 3; /* Tani waxay daboolaysaa warqadda hoosteeda */
+        }
+
+        /* Daboolka sare (3D Flap) */
+        .flap {
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 110px solid #ff85c2; /* Midabka daboolka */
+            transform-origin: top;
+            transition: transform 0.6s ease;
+            z-index: 4; /* Daboolka ayaa ugu sareeya marka ay xirantahay */
+        }
+
+        /* Marka la furo */
+        .envelope-wrapper.open .flap {
+            transform: rotateX(180deg);
+            z-index: 0; /* Gadaal ayuu u wareegayaa */
+        }
+
+        .envelope-wrapper.open .letter {
+            transform: translateY(-120px); /* Warqadda kor ayay u soo boodaysaa */
+            z-index: 2; /* Warqadda ayaa kor u soo baxaysa markay furanto */
+        }
+
+        /* Hearts */
+        .heart {
+            position: fixed;
+            bottom: -20px;
+            animation: floatUp linear forwards;
+            z-index: 10;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-110vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-wrapper" id="envelopeBox">
+        <div class="flap"></div>
+        <div class="letter">
+            <div class="name">Najmo, waan ku jecelahay! ❤️</div>
+        </div>
+        <div class="envelope-front"></div>
+    </div>
+
+    <script>
+        const envelope = document.getElementById('envelopeBox');
+
+        envelope.addEventListener('click', () => {
+            envelope.classList.add('open');
+
+            // Sug 3 ilbiriqsi ka dibna gudbi
+            setTimeout(() => {
+                window.location.href = "https://www.google.com"; 
+            }, 3000); 
+        });
+
+        function createHeart(){
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            const types = ['❤️','💖','💕','💗','❤️‍🔥'];
+            heart.innerText = types[Math.floor(Math.random()*types.length)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+            heart.style.fontSize = Math.random() * 20 + 10 + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
