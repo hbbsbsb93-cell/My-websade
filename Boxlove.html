@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Love Envelope - Najmo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Poppins:wght@300&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #ff1a75;
+            --secondary-color: #ff4da6;
+            --flap-color: #ff85c2;
+            --heart-color: #ff0066;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff4da6, #ff0066, #b30047);
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Envelope Container */
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background: var(--primary-color);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            transition: transform 0.5s ease;
+            z-index: 5;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        /* Letter Styling */
+        .letter {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 300px;
+            height: 200px;
+            background: #ffffff;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 1;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        /* Goobada Caadiga ah */
+        .img-container {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid var(--heart-color);
+            background: white;
+            margin-bottom: 10px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .name {
+            font-family: 'Allura', cursive;
+            font-size: 34px;
+            color: var(--heart-color);
+            line-height: 1.1;
+        }
+
+        .message {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        /* Envelope Design */
+        .envelope-front {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-right: 160px solid var(--secondary-color);
+            border-bottom: 110px solid var(--secondary-color);
+            border-left: 160px solid var(--secondary-color);
+            border-top: 110px solid transparent;
+            z-index: 3;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 120px solid var(--flap-color);
+            transform-origin: top;
+            transition: transform 0.6s ease;
+            z-index: 4;
+        }
+
+        /* Open State */
+        .envelope-wrapper.open .flap {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .envelope-wrapper.open .letter {
+            transform: translateY(-160px);
+            z-index: 2;
+        }
+
+        /* Animation Elements (Ubaxyada iyo Balanbaalista) */
+        .falling-element {
+            position: fixed;
+            top: -50px;
+            pointer-events: none;
+            z-index: 10;
+            animation: fallDown linear forwards;
+        }
+
+        @keyframes fallDown {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .hint {
+            position: absolute;
+            bottom: 30px;
+            color: white;
+            font-size: 14px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+    </style>
+</head>
+<body>
+
+    <div class="hint">Riix baqshadda si aad u furto ✨</div>
+
+    <div class="envelope-wrapper" id="envelopeBox">
+        <div class="flap"></div>
+        
+        <div class="letter">
+            <div class="img-container">
+                <img src="https://i.ibb.co/qYp45SK7/Screenshot-20260227-205434-Tik-Tok.jpg" alt="Profile">
+            </div>
+            <div class="name">
+                NAJMA,<br>Boqoradydii
+                👸❤️
+            </div>
+            <div class="message">my crush!</div>
+        </div>
+
+        <div class="envelope-front"></div>
+    </div>
+
+    <script>
+        const envelope = document.getElementById("envelopeBox");
+
+        envelope.addEventListener("click", () => {
+            const isOpen = envelope.classList.toggle("open");
+            
+            // Marka la furo, bilaaw animation-ka ubaxyada
+            if (isOpen) {
+                triggerAnimations();
+            }
+        });
+
+        function createFallingElement(emojiList) {
+            const element = document.createElement("div");
+            element.classList.add("falling-element");
+            
+            element.innerText = emojiList[Math.floor(Math.random() * emojiList.length)];
+            
+            element.style.left = Math.random() * 100 + "vw";
+            element.style.animationDuration = Math.random() * 3 + 2 + "s"; // 2-5 seconds
+            element.style.fontSize = Math.random() * 20 + 20 + "px";
+            
+            document.body.appendChild(element);
+
+            setTimeout(() => {
+                element.remove();
+            }, 5000);
+        }
+
+        function triggerAnimations() {
+            // Soo daadi ubaxyo iyo balanbaalis mar qura
+            const emojis = ["🌸", "🦋", "✨", "🌷", "🌼", "🌺"];
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    createFallingElement(emojis);
+                }, i * 100);
+            }
+        }
+
+        // Qalbiyada hoos ka naya mar walba
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.style.position = "fixed";
+            heart.style.bottom = "-20px";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.innerText = "❤️";
+            heart.style.fontSize = Math.random() * 15 + 10 + "px";
+            heart.style.zIndex = "1";
+            heart.style.animation = `floatUp ${Math.random() * 2 + 3}s linear forwards`;
+            
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        const style = document.createElement('style');
+        style.innerHTML = `@keyframes floatUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-110vh); opacity: 0; } }`;
+        document.head.appendChild(style);
+
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
+
