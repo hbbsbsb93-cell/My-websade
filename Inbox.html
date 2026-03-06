@@ -98,6 +98,18 @@ z-index:1;
 0%{transform:translateY(0) rotate(0deg);opacity:0.8;}
 100%{transform:translateY(-110vh) rotate(360deg);opacity:0;}
 }
+
+/* QORAALKA HOOSE */
+.credit{
+position:fixed;
+bottom:10px;
+left:50%;
+transform:translateX(-50%);
+color:white;
+font-size:14px;
+opacity:0.8;
+letter-spacing:1px;
+}
 </style>
 </head>
 
@@ -120,6 +132,10 @@ oninput="autoExpand(this)"
 
 </div>
 
+<div class="credit">
+Created by Mohamed
+</div>
+
 <script>
 
 (function(){
@@ -136,7 +152,7 @@ function sendMail(){
 let message=document.getElementById("message").value;
 
 if(message.trim()==""){
-alert("Fariin qor marka hore");
+alert("fariin quruxbadan qor");
 return;
 }
 
