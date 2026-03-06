@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Love Message</title>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<style>
+:root{
+--primary-pink:#ff1a75;
+--soft-pink:#ff4da6;
+--glass-bg:rgba(255,255,255,0.2);
+--glass-border:rgba(255,255,255,0.4);
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#ff4da6,#ff0066,#b30047);
+overflow:hidden;
+}
+
+.glass-chat-container{
+width:90%;
+max-width:450px;
+background:var(--glass-bg);
+backdrop-filter:blur(20px);
+border:1px solid var(--glass-border);
+border-radius:25px;
+padding:20px;
+box-shadow:0 15px 35px rgba(0,0,0,0.2);
+z-index:100;
+}
+
+.input-area{
+width:100%;
+background:transparent;
+border:none;
+outline:none;
+color:white;
+font-size:18px;
+resize:none;
+min-height:45px;
+max-height:300px;
+overflow:hidden;
+margin-bottom:10px;
+}
+
+.input-area::placeholder{
+color:rgba(255,255,255,0.8);
+}
+
+.divider{
+height:1px;
+background:rgba(255,255,255,0.2);
+margin-bottom:10px;
+}
+
+.footer{
+display:flex;
+justify-content:flex-end;
+}
+
+.send-btn{
+color:white;
+font-weight:600;
+cursor:pointer;
+font-size:16px;
+letter-spacing:1px;
+}
+
+.send-btn:hover{
+color:#ffdae9;
+transform:scale(1.1);
+}
+
+.heart{
+position:fixed;
+bottom:-50px;
+pointer-events:none;
+animation:floatUp linear forwards;
+z-index:1;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(0) rotate(0deg);opacity:0.8;}
+100%{transform:translateY(-110vh) rotate(360deg);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="glass-chat-container">
+
+<textarea
+id="message"
+class="input-area"
+placeholder="Farriintaada halkan ku qor..."
+oninput="autoExpand(this)"
+></textarea>
+
+<div class="divider"></div>
+
+<div class="footer">
+<span class="send-btn" onclick="sendMail()">Send 💌</span>
+</div>
+
+</div>
+
+<script>
+
+(function(){
+emailjs.init("9TO7hHMapqy4U9kNz");
+})();
+
+function autoExpand(textarea){
+textarea.style.height='auto';
+textarea.style.height=textarea.scrollHeight+'px';
+}
+
+function sendMail(){
+
+let message=document.getElementById("message").value;
+
+if(message.trim()==""){
+alert("Fariin qor marka hore");
+return;
+}
+
+emailjs.send("service_j2uu8yq","template_z1r5iah",{
+message:message
+})
+
+.then(function(){
+alert("Message sent successfully ❤️");
+document.getElementById("message").value="";
+})
+
+.catch(function(error){
+alert("Error: "+JSON.stringify(error));
+});
+
+}
+
+function createHeart(){
+
+const heart=document.createElement("div");
+heart.classList.add("heart");
+
+const emojis=["❤️","💖","💕","💗","🌸","✨"];
+
+heart.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=Math.random()*3+4+"s";
+heart.style.fontSize=Math.random()*20+15+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+
+}
+
+setInterval(createHeart,500);
+
+</script>
+
+</body>
+</html>
